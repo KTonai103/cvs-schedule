@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>外勤先通知メール 2026年4月</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', 'Yu Gothic', sans-serif; background: #f0f2f5; padding: 16px; }
+    h1 { text-align: center; margin-bottom: 20px; font-size: 1.3rem; color: #1a1a2e; }
+    h1 small { display: block; font-size: 0.75rem; font-weight: normal; color: #666; margin-top: 4px; }
+
+    .nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; justify-content: center; }
+    .nav a { padding: 6px 14px; background: white; border: 1px solid #d0d5dd; border-radius: 20px; font-size: 0.82rem; color: #333; text-decoration: none; }
+    .nav a:hover { background: #f0f7ff; border-color: #4a9eff; color: #2471a3; }
+
+    .facility-block { background: white; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); margin-bottom: 24px; overflow: hidden; }
+    .facility-header { background: #1a1a2e; color: white; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; }
+    .facility-header h2 { font-size: 1rem; }
+    .copy-btn { padding: 5px 12px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; color: white; font-size: 0.75rem; cursor: pointer; }
+    .copy-btn:hover { background: rgba(255,255,255,0.25); }
+    .copy-btn.copied { background: #27ae60; border-color: #27ae60; }
+
+    .mail-area { padding: 18px; }
+    .mail-meta { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #f0f0f0; }
+    .mail-meta-row { display: flex; gap: 8px; margin-bottom: 6px; font-size: 0.85rem; }
+    .mail-meta-label { color: #888; min-width: 40px; }
+    .mail-meta-value { color: #333; font-weight: 500; }
+
+    .mail-body { font-size: 0.88rem; line-height: 1.85; white-space: pre-wrap; color: #222; background: #fafafa; border: 1px solid #e8e8e8; border-radius: 6px; padding: 16px; font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', monospace; }
+    .mail-body-hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<h1>外勤先通知メール<small>2026年4月 ／ 大阪大学心臓血管外科</small></h1>
+
+<nav class="nav">
+  <a href="#kyouwakai">協和会病院</a>
+  <a href="#kouseikai">甲聖会記念病院</a>
+  <a href="#higashiosaka">東大阪生協病院</a>
+  <a href="#kanou">加納生協病院</a>
+  <a href="#tsujimoto">辻本病院</a>
+  <a href="#cocoshia">ここしあ診療所</a>
+</nav>
+
+<!-- ==============================
+     1. 協和会病院
+     ============================== -->
+<div class="facility-block" id="kyouwakai">
+  <div class="facility-header">
+    <h2>協和会病院</h2>
+    <button class="copy-btn" onclick="copyMail('mail-kyouwakai')">コピー</button>
+  </div>
+  <div class="mail-area">
+    <div class="mail-meta">
+      <div class="mail-meta-row"><span class="mail-meta-label">件名</span><span class="mail-meta-value">4月 勤務担当者のご連絡（大阪大学心臓血管外科）</span></div>
+      <div class="mail-meta-row"><span class="mail-meta-label">宛先</span><span class="mail-meta-value">協和会病院 ご担当者様</span></div>
+    </div>
+    <div class="mail-body" id="mail-kyouwakai">協和会病院 ご担当者様
+
+平素より大変お世話になっております。
+大阪大学心臓血管外科の藤内です。
+4月の貴院勤務担当者につき、下記のとおりご連絡申し上げます。
+
+【担当日程】
+・4月4日（土）：藤内 康平（ktonai.cs@gmail.com／090-6884-0489）
+・4月18日（土）：手繰 優太（tegy.sa.ca@gmail.com／090-6694-0797）
+・4月25日（土）：多田 浩気（tadahiroki1107@gmail.com／090-1966-3583）
+・4月26日（日）：濱田 悠輔（hamahama0720@gmail.com／080-3614-2503）
+・4月29日（水・祝）：金森 皓士（kk18626@kchnet.or.jp／080-6360-8273）
+
+ご確認のほど、何卒よろしくお願い申し上げます。
+ご不明点等ございましたら、お知らせください。
+
+――――――――――
+大阪大学心臓血管外科
+藤内 康平
+――――――――――</div>
+  </div>
+</div>
+
+<!-- ==============================
+     2. 甲聖会記念病院
+     ============================== -->
+<div class="facility-block" id="kouseikai">
+  <div class="facility-header">
+    <h2>甲聖会記念病院</h2>
+    <button class="copy-btn" onclick="copyMail('mail-kouseikai')">コピー</button>
+  </div>
+  <div class="mail-area">
+    <div class="mail-meta">
+      <div class="mail-meta-row"><span class="mail-meta-label">件名</span><span class="mail-meta-value">4月 勤務担当者のご連絡（大阪大学心臓血管外科）</span></div>
+      <div class="mail-meta-row"><span class="mail-meta-label">宛先</span><span class="mail-meta-value">甲聖会記念病院 ご担当者様</span></div>
+    </div>
+    <div class="mail-body" id="mail-kouseikai">甲聖会記念病院 ご担当者様
+
+平素より大変お世話になっております。
+大阪大学心臓血管外科の藤内です。
+4月の貴院勤務担当者につき、下記のとおりご連絡申し上げます。
+
+【担当日程】
+・4月4日（土）日直：安田 直輝（nyasuda629@gmail.com／080-2512-5894）
+・4月11日（土）日当直：山下 由華（yuyamashita.l1z8@gmail.com／080-6377-1758）
+・4月12日（日）日当直：濱田 悠輔（hamahama0720@gmail.com／080-3614-2503）
+・4月18日（土）日直：金森 皓士（kk18626@kchnet.or.jp／080-6360-8273）
+・4月25日（土）日直：山下 由華（yuyamashita.l1z8@gmail.com／080-6377-1758）
+
+ご確認のほど、何卒よろしくお願い申し上げます。
+ご不明点等ございましたら、お知らせください。
+
+――――――――――
+大阪大学心臓血管外科
+藤内 康平
+――――――――――</div>
+  </div>
+</div>
+
+<!-- ==============================
+     3. 東大阪生協病院
+     ============================== -->
+<div class="facility-block" id="higashiosaka">
+  <div class="facility-header">
+    <h2>東大阪生協病院</h2>
+    <button class="copy-btn" onclick="copyMail('mail-higashiosaka')">コピー</button>
+  </div>
+  <div class="mail-area">
+    <div class="mail-meta">
+      <div class="mail-meta-row"><span class="mail-meta-label">件名</span><span class="mail-meta-value">4月 勤務担当者のご連絡（大阪大学心臓血管外科）</span></div>
+      <div class="mail-meta-row"><span class="mail-meta-label">宛先</span><span class="mail-meta-value">東大阪生協病院 ご担当者様</span></div>
+    </div>
+    <div class="mail-body" id="mail-higashiosaka">東大阪生協病院 ご担当者様
+
+平素より大変お世話になっております。
+大阪大学心臓血管外科の藤内です。
+4月の貴院勤務担当者につき、下記のとおりご連絡申し上げます。
+
+【担当日程】
+・4月11日（土）：藤ノ木 亮（a08ki21ra.f@gmail.com／090-8641-5403）
+・4月25日（土）：上村 宙輝（hiroki.love.shogi0706@docomo.ne.jp／080-8344-9226）
+
+ご確認のほど、何卒よろしくお願い申し上げます。
+ご不明点等ございましたら、お知らせください。
+
+――――――――――
+大阪大学心臓血管外科
+藤内 康平
+――――――――――</div>
+  </div>
+</div>
+
+<!-- ==============================
+     4. 加納生協病院
+     ============================== -->
+<div class="facility-block" id="kanou">
+  <div class="facility-header">
+    <h2>加納生協病院</h2>
+    <button class="copy-btn" onclick="copyMail('mail-kanou')">コピー</button>
+  </div>
+  <div class="mail-area">
+    <div class="mail-meta">
+      <div class="mail-meta-row"><span class="mail-meta-label">件名</span><span class="mail-meta-value">4月 勤務担当者のご連絡（大阪大学心臓血管外科）</span></div>
+      <div class="mail-meta-row"><span class="mail-meta-label">宛先</span><span class="mail-meta-value">加納生協病院 ご担当者様</span></div>
+    </div>
+    <div class="mail-body" id="mail-kanou">加納生協病院 ご担当者様
+
+平素より大変お世話になっております。
+大阪大学心臓血管外科の藤内です。
+4月の貴院勤務担当者につき、下記のとおりご連絡申し上げます。
+
+【担当日程】
+・4月4日（土）：多田 浩気（tadahiroki1107@gmail.com／090-1966-3583）
+・4月11日（土）：柿本 優介（ykakimoto04@gmail.com／090-6378-6316）
+・4月18日（土）：藤ノ木 亮（a08ki21ra.f@gmail.com／090-8641-5403）
+・4月25日（土）：安田 直輝（nyasuda629@gmail.com／080-2512-5894）
+
+ご確認のほど、何卒よろしくお願い申し上げます。
+ご不明点等ございましたら、お知らせください。
+
+――――――――――
+大阪大学心臓血管外科
+藤内 康平
+――――――――――</div>
+  </div>
+</div>
+
+<!-- ==============================
+     5. 辻本病院
+     ============================== -->
+<div class="facility-block" id="tsujimoto">
+  <div class="facility-header">
+    <h2>辻本病院</h2>
+    <button class="copy-btn" onclick="copyMail('mail-tsujimoto')">コピー</button>
+  </div>
+  <div class="mail-area">
+    <div class="mail-meta">
+      <div class="mail-meta-row"><span class="mail-meta-label">件名</span><span class="mail-meta-value">4月 勤務担当者のご連絡（大阪大学心臓血管外科）</span></div>
+      <div class="mail-meta-row"><span class="mail-meta-label">宛先</span><span class="mail-meta-value">辻本病院 ご担当者様</span></div>
+    </div>
+    <div class="mail-body" id="mail-tsujimoto">辻本病院 ご担当者様
+
+平素より大変お世話になっております。
+大阪大学心臓血管外科の藤内です。
+4月の貴院勤務担当者につき、下記のとおりご連絡申し上げます。
+
+【担当日程】
+・4月4日（土）：手繰 優太（tegy.sa.ca@gmail.com／090-6694-0797）
+・4月5日（日）：石津 寛治（alloutprizefight@gmail.com／080-3290-5207）
+・4月25日（土）：石津 寛治（alloutprizefight@gmail.com／080-3290-5207）
+
+ご確認のほど、何卒よろしくお願い申し上げます。
+ご不明点等ございましたら、お知らせください。
+
+――――――――――
+大阪大学心臓血管外科
+藤内 康平
+――――――――――</div>
+  </div>
+</div>
+
+<!-- ==============================
+     6. ここしあ診療所
+     ============================== -->
+<div class="facility-block" id="cocoshia">
+  <div class="facility-header">
+    <h2>ここしあ診療所</h2>
+    <button class="copy-btn" onclick="copyMail('mail-cocoshia')">コピー</button>
+  </div>
+  <div class="mail-area">
+    <div class="mail-meta">
+      <div class="mail-meta-row"><span class="mail-meta-label">件名</span><span class="mail-meta-value">4月 勤務担当者のご連絡（大阪大学心臓血管外科）</span></div>
+      <div class="mail-meta-row"><span class="mail-meta-label">宛先</span><span class="mail-meta-value">ここしあ診療所 ご担当者様</span></div>
+    </div>
+    <div class="mail-body" id="mail-cocoshia">ここしあ診療所 ご担当者様
+
+平素より大変お世話になっております。
+大阪大学心臓血管外科の藤内です。
+4月の貴院勤務担当者につき、下記のとおりご連絡申し上げます。
+
+【担当日程】
+・4月11日（土）：藤内 康平（ktonai.cs@gmail.com／090-6884-0489）
+・4月25日（土）：柿本 優介（ykakimoto04@gmail.com／090-6378-6316）
+
+ご確認のほど、何卒よろしくお願い申し上げます。
+ご不明点等ございましたら、お知らせください。
+
+――――――――――
+大阪大学心臓血管外科
+藤内 康平
+――――――――――</div>
+  </div>
+</div>
+
+<script>
+function copyMail(id) {
+  const el = document.getElementById(id);
+  const text = el.innerText || el.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    // Find the button that triggered this
+    const btn = el.closest('.facility-block').querySelector('.copy-btn');
+    const orig = btn.textContent;
+    btn.textContent = 'コピー完了！';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    // Fallback for older browsers
+    const range = document.createRange();
+    range.selectNode(el);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+  });
+}
+</script>
+</body>
+</html>
