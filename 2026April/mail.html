@@ -20,9 +20,8 @@
     .copy-btn { padding: 5px 12px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; color: white; font-size: 0.75rem; cursor: pointer; }
     .copy-btn:hover { background: rgba(255,255,255,0.25); }
     .copy-btn.copied { background: #27ae60; border-color: #27ae60; }
-    .gmail-btn { padding: 5px 12px; background: #c5221f; border: 1px solid #c5221f; border-radius: 6px; color: white; font-size: 0.75rem; cursor: pointer; margin-left: 6px; }
-    .gmail-btn:hover { background: #a01b18; }
-    .gmail-btn:disabled { background: #888; border-color: #888; cursor: not-allowed; opacity: 0.65; }
+    .gmail-btn { display: inline-block; text-decoration: none; padding: 5px 12px; background: #c5221f; border: 1px solid #c5221f; border-radius: 6px; color: white; font-size: 0.75rem; cursor: pointer; margin-left: 6px; }
+    .gmail-btn:hover { background: #a01b18; color: white; }
 
     .mail-area { padding: 18px; }
     .mail-meta { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #f0f0f0; }
@@ -54,7 +53,7 @@
   <div class="facility-header">
     <h2>協和会病院</h2>
     <button class="copy-btn" onclick="copyMail('mail-kyouwakai')">コピー</button>
-    <button class="gmail-btn" onclick="openGmail('kyouwakai')">Gmailで送信</button>
+    <a class="gmail-btn" id="gmail-kyouwakai">Gmailで送信</a>
   </div>
   <div class="mail-area">
     <div class="mail-meta">
@@ -91,7 +90,7 @@
   <div class="facility-header">
     <h2>甲聖会紀念病院</h2>
     <button class="copy-btn" onclick="copyMail('mail-kouseikai')">コピー</button>
-    <button class="gmail-btn" onclick="openGmail('kouseikai')">Gmailで送信</button>
+    <a class="gmail-btn" id="gmail-kouseikai">Gmailで送信</a>
   </div>
   <div class="mail-area">
     <div class="mail-meta">
@@ -128,7 +127,7 @@
   <div class="facility-header">
     <h2>東大阪生協病院</h2>
     <button class="copy-btn" onclick="copyMail('mail-higashiosaka')">コピー</button>
-    <button class="gmail-btn" onclick="openGmail('higashiosaka')">Gmailで送信</button>
+    <a class="gmail-btn" id="gmail-higashiosaka">Gmailで送信</a>
   </div>
   <div class="mail-area">
     <div class="mail-meta">
@@ -162,7 +161,7 @@
   <div class="facility-header">
     <h2>加納生協病院</h2>
     <button class="copy-btn" onclick="copyMail('mail-kanou')">コピー</button>
-    <button class="gmail-btn" onclick="openGmail('kanou')">Gmailで送信</button>
+    <a class="gmail-btn" id="gmail-kanou">Gmailで送信</a>
   </div>
   <div class="mail-area">
     <div class="mail-meta">
@@ -198,7 +197,7 @@
   <div class="facility-header">
     <h2>辻本病院</h2>
     <button class="copy-btn" onclick="copyMail('mail-tsujimoto')">コピー</button>
-    <button class="gmail-btn" onclick="openGmail('tsujimoto')">Gmailで送信</button>
+    <a class="gmail-btn" id="gmail-tsujimoto">Gmailで送信</a>
   </div>
   <div class="mail-area">
     <div class="mail-meta">
@@ -233,7 +232,7 @@
   <div class="facility-header">
     <h2>ここしあ診療所</h2>
     <button class="copy-btn" onclick="copyMail('mail-cocoshia')">コピー</button>
-    <button class="gmail-btn" onclick="openGmail('cocoshia')">Gmailで送信</button>
+    <a class="gmail-btn" id="gmail-cocoshia">Gmailで送信</a>
   </div>
   <div class="mail-area">
     <div class="mail-meta">
@@ -295,23 +294,24 @@ const FACILITY_CONFIG = {
   }
 };
 
-function openGmail(facilityId) {
-  const config = FACILITY_CONFIG[facilityId];
-  const el = document.getElementById('mail-' + facilityId);
-  const body = el.innerText || el.textContent;
-  const url = 'https://mail.google.com/mail/?view=cm&fs=1'
-    + '&to=' + encodeURIComponent(config.to)
-    + '&cc=' + encodeURIComponent(config.cc)
-    + '&su=' + encodeURIComponent(config.subject)
-    + '&body=' + encodeURIComponent(body);
-  const a = document.createElement('a');
-  a.href = url;
-  a.target = '_blank';
-  a.rel = 'noopener noreferrer';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-}
+// ページ読み込み後に各施設のGmailリンクを設定
+document.addEventListener('DOMContentLoaded', function() {
+  Object.keys(FACILITY_CONFIG).forEach(function(id) {
+    const config = FACILITY_CONFIG[id];
+    const mailEl = document.getElementById('mail-' + id);
+    const linkEl = document.getElementById('gmail-' + id);
+    if (!mailEl || !linkEl) return;
+    const body = mailEl.innerText || mailEl.textContent;
+    const url = 'https://mail.google.com/mail/?view=cm&fs=1'
+      + '&to=' + encodeURIComponent(config.to)
+      + '&cc=' + encodeURIComponent(config.cc)
+      + '&su=' + encodeURIComponent(config.subject)
+      + '&body=' + encodeURIComponent(body);
+    linkEl.href = url;
+    linkEl.target = '_blank';
+    linkEl.rel = 'noopener noreferrer';
+  });
+});
 
 function copyMail(id) {
   const el = document.getElementById(id);
