@@ -706,7 +706,7 @@ function downloadICS(memberName) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `当直_${memberName}_2026年4月.ics`;
+  a.download = `schedule_2026Apr_${memberName}.ics`;
   a.click();
   URL.revokeObjectURL(url);
 }
