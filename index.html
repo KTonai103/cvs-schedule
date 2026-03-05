@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026年4月 当直表 - 大阪大学心臓血管外科</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', 'Yu Gothic', sans-serif; background: #f0f2f5; padding: 16px; }
+    h1 { text-align: center; margin-bottom: 16px; font-size: 1.4rem; color: #1a1a2e; }
+    h1 small { display: block; font-size: 0.75rem; font-weight: normal; color: #666; margin-top: 4px; }
+
+    /* === Member Buttons Section === */
+    .member-section { background: white; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+    .class-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+    .class-row:last-child { margin-bottom: 0; }
+    .class-label { font-size: 0.72rem; font-weight: bold; color: #888; min-width: 52px; padding-top: 8px; }
+    .icu-row { display: flex; align-items: center; gap: 10px; margin-top: 6px; padding-top: 6px; border-top: 1px solid #f0f0f0; }
+    .icu-label { font-size: 0.72rem; font-weight: bold; color: #888; min-width: 52px; }
+    .icu-badge { font-size: 0.78rem; padding: 3px 10px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 12px; color: #856404; font-weight: 600; }
+    .btn-group { display: flex; flex-wrap: wrap; gap: 7px; }
+    .member-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 11px; border: 2px solid #ddd; border-radius: 20px;
+      cursor: pointer; font-size: 0.85rem; background: white;
+      transition: all 0.15s; user-select: none;
+    }
+    .member-btn:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    .member-btn.active { color: white !important; border-color: transparent !important; }
+    .member-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+    .ics-btn {
+      display: inline-block; padding: 2px 7px; font-size: 0.65rem;
+      background: #eef6fb; border: 1px solid #b3d9ef; border-radius: 4px;
+      cursor: pointer; color: #2471a3; text-decoration: none; line-height: 1.5;
+    }
+    .ics-btn:hover { background: #d6eaf8; }
+    .print-btn {
+      display: inline-block; padding: 2px 7px; font-size: 0.65rem;
+      background: #f0f4f0; border: 1px solid #aac8aa; border-radius: 4px;
+      cursor: pointer; color: #2e7d32; line-height: 1.5;
+    }
+    .print-btn:hover { background: #dcedc8; }
+
+    /* === Calendar === */
+    .calendar-wrapper { background: white; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); overflow: hidden; margin-bottom: 14px; }
+    .cal-header { display: grid; grid-template-columns: repeat(7, 1fr); }
+    .cal-header-cell { padding: 8px 4px; text-align: center; font-size: 0.8rem; font-weight: bold; }
+    .cal-header-cell.sun { background: #fff0f0; color: #c0392b; }
+    .cal-header-cell.mon, .cal-header-cell.tue, .cal-header-cell.wed,
+    .cal-header-cell.thu, .cal-header-cell.fri { background: #f5f5f5; color: #333; }
+    .cal-header-cell.sat { background: #f0f0ff; color: #2471a3; }
+
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+    .cal-cell {
+      border: 1px solid #e8e8e8; min-height: 130px; padding: 6px;
+      vertical-align: top; position: relative; transition: background 0.2s;
+    }
+    .cal-cell.empty { background: #fafafa; }
+    .cal-cell.sun-col { background: #fffafa; }
+    .cal-cell.sat-col { background: #fafaff; }
+    .cal-cell.holiday-col { background: #fff5f5; }
+
+    .date-num { font-size: 0.82rem; font-weight: bold; margin-bottom: 3px; color: #333; }
+    .date-num.sun { color: #c0392b; }
+    .date-num.sat { color: #2471a3; }
+    .date-num.hol { color: #c0392b; }
+    .holiday-name { font-size: 0.6rem; color: #c0392b; margin-bottom: 3px; }
+
+    .shift { font-size: 0.72rem; padding: 2px 5px; border-radius: 4px; margin-bottom: 2px; display: flex; align-items: baseline; gap: 3px; }
+    .shift-lbl { font-size: 0.63rem; color: #888; min-width: 24px; flex-shrink: 0; }
+    .shift-name { font-weight: 600; }
+    .ext-shift {
+      font-size: 0.67rem; padding: 2px 5px; border-radius: 4px; margin-bottom: 2px;
+      background: #f0f8ff; border-left: 3px solid #5dade2;
+      display: flex; align-items: baseline; gap: 3px;
+    }
+    .ext-fac { color: #555; font-size: 0.63rem; flex-shrink: 0; max-width: 64px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .ext-person { font-weight: 600; }
+
+    /* Highlight/dim states */
+    .shift.dim { opacity: 0.15; }
+    .ext-shift.dim { opacity: 0.15; }
+    .shift.lit { outline: 2px solid; border-radius: 4px; }
+    .ext-shift.lit { outline: 2px solid; border-radius: 4px; }
+
+    /* === External Duty Detail === */
+    .ext-detail { background: white; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); display: none; }
+    .ext-detail h3 { font-size: 0.95rem; margin-bottom: 10px; }
+    .ext-detail-list { list-style: none; }
+    .ext-detail-list li { padding: 6px 0; border-bottom: 1px solid #f2f2f2; font-size: 0.85rem; display: flex; gap: 10px; }
+    .ext-detail-list li:last-child { border-bottom: none; }
+    .ext-date-col { color: #666; min-width: 80px; }
+    .ext-fac-col { color: #333; min-width: 120px; }
+    .ext-time-col { color: #888; font-size: 0.8rem; }
+
+
+    /* === Mobile List View === */
+    #mobile-list { display: none; }
+
+    @media (max-width: 599px) {
+      body { padding: 8px; }
+      h1 { font-size: 1.1rem; }
+      .calendar-wrapper { display: none; }
+      #mobile-list { display: block; }
+
+      /* Compact member section on mobile */
+      .member-section { padding: 10px 12px; }
+      .class-label { min-width: 44px; font-size: 0.68rem; padding-top: 6px; }
+      .member-btn { font-size: 0.8rem; padding: 4px 9px; }
+      .ics-btn, .print-btn { font-size: 0.62rem; padding: 2px 5px; }
+
+      /* Mobile day cards */
+      .mobile-day {
+        background: white;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      .mobile-date-hdr {
+        padding: 7px 12px;
+        font-weight: bold;
+        font-size: 0.88rem;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .mobile-date-hdr.wd-hdr  { background: #f5f5f5; color: #333; }
+      .mobile-date-hdr.sat-hdr { background: #f0f0ff; color: #2471a3; }
+      .mobile-date-hdr.hol-hdr { background: #fff0f0; color: #c0392b; }
+      .mobile-hol-name { font-size: 0.72rem; font-weight: normal; color: #c0392b; }
+
+      .mobile-shifts {
+        padding: 8px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .mobile-shift {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        border-radius: 4px;
+        padding: 2px 4px;
+        transition: opacity 0.15s;
+      }
+      .mobile-shift.dim { opacity: 0.15; }
+      .mobile-shift.lit { background: rgba(0,0,0,0.06); outline: 2px solid; border-radius: 4px; }
+      .ms-label { color: #888; font-size: 0.72rem; min-width: 28px; flex-shrink: 0; }
+      .ms-name  { font-weight: 600; }
+
+      .mobile-ext {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.82rem;
+        padding: 5px 8px;
+        background: #f0f8ff;
+        border-left: 3px solid #5dade2;
+        border-radius: 4px;
+        transition: opacity 0.15s;
+        flex-wrap: wrap;
+      }
+      .mobile-ext.dim { opacity: 0.15; }
+      .mobile-ext.lit { outline: 2px solid; border-radius: 4px; }
+      .me-fac  { color: #555; font-size: 0.75rem; flex-shrink: 0; }
+      .me-name { font-weight: 600; flex-shrink: 0; }
+      .me-time { color: #888; font-size: 0.72rem; flex: 1; text-align: right; }
+    }
+
+    /* === Print === */
+    @media print {
+      @page { size: A4 landscape; margin: 10mm 8mm; }
+      body { background: white; padding: 0; }
+
+      /* Hide interactive elements */
+      .member-section, .ext-detail, .ics-btn, .print-btn { display: none !important; }
+
+      /* Print title: show member name if individual print */
+      .print-title { display: block !important; text-align: center; font-size: 0.8rem; color: #555; margin-bottom: 4px; }
+
+      h1 { font-size: 1.1rem; margin-bottom: 4px; }
+      h1 small { font-size: 0.72rem; }
+
+      /* Calendar */
+      .calendar-wrapper { box-shadow: none; border-radius: 0; border: 1px solid #bbb; margin-bottom: 0; }
+      .cal-header-cell { padding: 4px 2px; font-size: 0.75rem; }
+      .cal-cell { min-height: 78px; padding: 4px 3px; border-color: #ccc; }
+      .cal-cell.empty { background: #f7f7f7; }
+      .date-num { font-size: 0.78rem; margin-bottom: 2px; }
+      .holiday-name { font-size: 0.6rem; }
+      .shift { font-size: 0.7rem; padding: 2px 4px; margin-bottom: 2px; }
+      .shift-lbl { font-size: 0.6rem; min-width: 20px; }
+      .ext-shift { font-size: 0.65rem; padding: 2px 4px; margin-bottom: 2px; }
+      .ext-fac { max-width: 58px; font-size: 0.6rem; }
+
+      /* Individual print: dim non-target shifts cleanly */
+      body.printing .shift.dim { opacity: 0.18 !important; }
+      body.printing .ext-shift.dim { opacity: 0.18 !important; }
+      body.printing .shift.lit { outline: 2px solid; border-radius: 4px; }
+      body.printing .ext-shift.lit { outline: 2px solid; border-radius: 4px; }
+
+      /* Full print: no dim */
+      body:not(.printing) .shift.dim,
+      body:not(.printing) .ext-shift.dim { opacity: 1 !important; }
+      body:not(.printing) .shift.lit,
+      body:not(.printing) .ext-shift.lit { outline: none !important; background-color: transparent !important; }
+    }
+
+  </style>
+</head>
+<body>
+
+<h1>2026年4月 当直表<small>大阪大学心臓血管外科</small></h1>
+<div class="print-title" id="print-title" style="display:none;"></div>
+
+<!-- Member Buttons -->
+<div class="member-section" id="member-section">
+  <div class="class-row">
+    <div class="class-label">Bクラス</div>
+    <div class="btn-group" id="b-btns"></div>
+  </div>
+  <div class="class-row">
+    <div class="class-label">Cクラス</div>
+    <div class="btn-group" id="c-btns"></div>
+  </div>
+  <div class="icu-row">
+    <div class="icu-label">ICU出向</div>
+    <span class="icu-badge">🏥 大山（今月ICU出向中）</span>
+  </div>
+</div>
+
+<!-- External Duty Detail -->
+<div class="ext-detail" id="ext-detail">
+  <h3 id="ext-detail-title">外勤一覧</h3>
+  <ul class="ext-detail-list" id="ext-detail-list"></ul>
+</div>
+
+<!-- Mobile List (shown on small screens) -->
+<div id="mobile-list"></div>
+
+<!-- Calendar -->
+<div class="calendar-wrapper">
+  <div class="cal-header">
+    <div class="cal-header-cell sun">日</div>
+    <div class="cal-header-cell mon">月</div>
+    <div class="cal-header-cell tue">火</div>
+    <div class="cal-header-cell wed">水</div>
+    <div class="cal-header-cell thu">木</div>
+    <div class="cal-header-cell fri">金</div>
+    <div class="cal-header-cell sat">土</div>
+  </div>
+  <div class="cal-grid" id="cal-grid"></div>
+</div>
+
+
+<script>
+// =====================
+// SCHEDULE DATA
+// =====================
+const MEMBERS = {
+  '藤内':  { cls: 'B', color: '#e74c3c' },
+  '濱田':  { cls: 'B', color: '#e67e22' },
+  '多田':  { cls: 'B', color: '#d4ac0d' },
+  '手繰':  { cls: 'B', color: '#27ae60' },
+  '石津':  { cls: 'B', color: '#2471a3' },
+  '安田':  { cls: 'C', color: '#8e44ad' },
+  '藤ノ木':{ cls: 'C', color: '#16a085' },
+  '山下':  { cls: 'C', color: '#6d4c41' },
+  '金森':  { cls: 'C', color: '#c0392b' },
+  '柿本':  { cls: 'C', color: '#7f8c8d' },
+  '上村':  { cls: 'C', color: '#1a8a6e' },
+};
+
+// duty times for ICS
+// ext duties: [facility, timeStr, icsStart(HHmm), icsEndOffset(minutes from start date), endDayOffset]
+const DAYS = [
+  { date:'2026-04-01', hol:false, holName:null, f:'濱田', s:'安田', t:'山下',   ext:[] },
+  { date:'2026-04-02', hol:false, holName:null, f:'多田',  s:'藤ノ木', t:'安田',  ext:[] },
+  { date:'2026-04-03', hol:false, holName:null, f:'石津',  s:'金森',   t:'柿本',  ext:[] },
+  { date:'2026-04-04', hol:false, holName:null, f:'濱田',  s:'山下',   t:'金森',  ext:[
+    { fac:'協和会（日当直）', person:'藤内',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
+    { fac:'甲聖会（日直）',   person:'安田',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
+    { fac:'加納生協',         person:'多田',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
+    { fac:'辻本（日当直）',   person:'手繰',   time:'13:00〜翌09:00', icsS:'130000', icsE_d:1, icsE_t:'090000' },
+  ]},
+  { date:'2026-04-05', hol:false, holName:null, f:'多田',  s:'柿本',   t:'上村',  ext:[
+    { fac:'辻本（日当直）',   person:'石津',   time:'09:00〜翌06:30', icsS:'090000', icsE_d:1, icsE_t:'063000' },
+  ]},
+  { date:'2026-04-06', hol:false, holName:null, f:'藤内',  s:'上村',   t:'山下',  ext:[] },
+  { date:'2026-04-07', hol:false, holName:null, f:'石津',  s:'濱田',   t:'藤ノ木', ext:[] },
+  { date:'2026-04-08', hol:false, holName:null, f:'手繰',  s:'多田',   t:'安田',  ext:[] },
+  { date:'2026-04-09', hol:false, holName:null, f:'多田',  s:'安田',   t:'金森',  ext:[] },
+  { date:'2026-04-10', hol:false, holName:null, f:'手繰',  s:'石津',   t:'柿本',  ext:[] },
+  { date:'2026-04-11', hol:false, holName:null, f:'多田',  s:'金森',   t:'上村',  ext:[
+    { fac:'甲聖会（日当直）', person:'山下',   time:'08:00〜翌08:00', icsS:'080000', icsE_d:1, icsE_t:'080000' },
+    { fac:'東大阪生協',       person:'藤ノ木', time:'09:00〜12:30',   icsS:'090000', icsE_d:0, icsE_t:'123000' },
+    { fac:'加納生協',         person:'柿本',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
+    { fac:'ここしあ診療所',   person:'藤内',   time:'09:00〜17:00',   icsS:'090000', icsE_d:0, icsE_t:'170000' },
+  ]},
+  { date:'2026-04-12', hol:false, holName:null, f:'藤内',  s:'手繰',   t:'山下',  ext:[
+    { fac:'甲聖会（日当直）', person:'濱田',   time:'08:00〜翌07:30', icsS:'080000', icsE_d:1, icsE_t:'073000' },
+  ]},
+  { date:'2026-04-13', hol:false, holName:null, f:'石津',  s:'藤ノ木', t:'金森',  ext:[] },
+  { date:'2026-04-14', hol:false, holName:null, f:'濱田',  s:'上村',   t:'藤ノ木', ext:[] },
+  { date:'2026-04-15', hol:false, holName:null, f:'藤内',  s:'山下',   t:'柿本',  ext:[] },
+  { date:'2026-04-16', hol:false, holName:null, f:'手繰',  s:'安田',   t:'藤ノ木', ext:[] },
+  { date:'2026-04-17', hol:false, holName:null, f:'石津',  s:'多田',   t:'上村',  ext:[] },
+  { date:'2026-04-18', hol:false, holName:null, f:'濱田',  s:'山下',   t:'柿本',  ext:[
+    { fac:'協和会（日当直）', person:'手繰',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
+    { fac:'甲聖会（日直）',   person:'金森',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
+    { fac:'加納生協',         person:'藤ノ木', time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
+  ]},
+  { date:'2026-04-19', hol:false, holName:null, f:'藤内',  s:'金森',   t:'安田',  ext:[] },
+  { date:'2026-04-20', hol:false, holName:null, f:'石津',  s:'濱田',   t:'山下',  ext:[] },
+  { date:'2026-04-21', hol:false, holName:null, f:'多田',  s:'手繰',   t:'藤ノ木', ext:[] },
+  { date:'2026-04-22', hol:false, holName:null, f:'手繰',  s:'柿本',   t:'上村',  ext:[] },
+  { date:'2026-04-23', hol:false, holName:null, f:'濱田',  s:'上村',   t:'柿本',  ext:[] },
+  { date:'2026-04-24', hol:false, holName:null, f:'多田',  s:'石津',   t:'金森',  ext:[] },
+  { date:'2026-04-25', hol:false, holName:null, f:'手繰',  s:'金森',   t:'藤ノ木', ext:[
+    { fac:'協和会（日当直）', person:'多田',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
+    { fac:'甲聖会（日直）',   person:'安田',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
+    { fac:'東大阪生協',       person:'上村',   time:'09:00〜12:30',   icsS:'090000', icsE_d:0, icsE_t:'123000' },
+    { fac:'加納生協',         person:'山下',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
+    { fac:'辻本（日当直）',   person:'石津',   time:'13:00〜翌09:00', icsS:'130000', icsE_d:1, icsE_t:'090000' },
+    { fac:'ここしあ診療所',   person:'柿本',   time:'09:00〜17:00',   icsS:'090000', icsE_d:0, icsE_t:'170000' },
+  ]},
+  { date:'2026-04-26', hol:false, holName:null, f:'多田',  s:'手繰',   t:'安田',  ext:[
+    { fac:'協和会（日当直）', person:'濱田',   time:'09:00〜翌07:30', icsS:'090000', icsE_d:1, icsE_t:'073000' },
+  ]},
+  { date:'2026-04-27', hol:false, holName:null, f:'手繰',  s:'石津',   t:'安田',  ext:[] },
+  { date:'2026-04-28', hol:false, holName:null, f:'濱田',  s:'藤内',   t:'上村',  ext:[] },
+  { date:'2026-04-29', hol:true,  holName:'昭和の日', f:'石津', s:'藤内', t:'山下', ext:[
+    { fac:'協和会（日当直）', person:'金森',   time:'09:00〜翌07:30', icsS:'090000', icsE_d:1, icsE_t:'073000' },
+  ]},
+  { date:'2026-04-30', hol:false, holName:null, f:'藤内',  s:'多田',   t:'金森',  ext:[] },
+];
+
+
+// =====================
+// UTILITIES
+// =====================
+function addDays(dateStr, n) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dt = new Date(y, m - 1, d + n);
+  return String(dt.getFullYear()) +
+    String(dt.getMonth() + 1).padStart(2, '0') +
+    String(dt.getDate()).padStart(2, '0');
+}
+
+function getDoW(dateStr) {
+  return new Date(dateStr + 'T00:00:00+09:00').getDay(); // 0=Sun
+}
+
+function isWeekend(day) {
+  const d = getDoW(day.date);
+  return d === 0 || d === 6 || day.hol;
+}
+
+function fmtDate(dateStr) {
+  const m = parseInt(dateStr.slice(5,7));
+  const d = parseInt(dateStr.slice(8,10));
+  const dow = ['日','月','火','水','木','金','土'][getDoW(dateStr)];
+  return `${m}/${d}(${dow})`;
+}
+
+// =====================
+// BUILD CALENDAR
+// =====================
+const calGrid = document.getElementById('cal-grid');
+
+// April 2026: April 1 is Wednesday (dow=3). Grid starts Sunday.
+// Fill 3 empty cells before April 1 (Sun, Mon, Tue)
+for (let i = 0; i < 3; i++) {
+  const cell = document.createElement('div');
+  cell.className = 'cal-cell empty';
+  calGrid.appendChild(cell);
+}
+
+DAYS.forEach(day => {
+  const dow = getDoW(day.date);
+  const d = parseInt(day.date.slice(8));
+  const cell = document.createElement('div');
+
+  let colClass = '';
+  if (dow === 0 || day.hol) colClass = ' holiday-col';
+  else if (dow === 6) colClass = ' sat-col';
+
+  cell.className = 'cal-cell' + colClass;
+  cell.dataset.date = day.date;
+
+  // Date number
+  let numClass = dow === 0 || day.hol ? 'hol' : dow === 6 ? 'sat' : '';
+  cell.insertAdjacentHTML('beforeend', `<div class="date-num ${numClass}">${d}</div>`);
+  if (day.hol) cell.insertAdjacentHTML('beforeend', `<div class="holiday-name">${day.holName}</div>`);
+
+  // 1st
+  cell.appendChild(makeShift('1st', day.f));
+  // 2nd
+  cell.appendChild(makeShift('2nd', day.s));
+  // 3rd
+  cell.appendChild(makeShift('3rd', day.t));
+  // ext
+  day.ext.forEach(e => {
+    const div = document.createElement('div');
+    div.className = 'ext-shift';
+    div.dataset.person = e.person;
+    const facShort = e.fac.length > 8 ? e.fac.slice(0,8)+'…' : e.fac;
+    div.innerHTML = `<span class="ext-fac" title="${e.fac}">${facShort}</span><span class="ext-person" data-name="${e.person}" style="color:${MEMBERS[e.person]?.color || '#333'}">${e.person}</span>`;
+    cell.appendChild(div);
+  });
+
+  calGrid.appendChild(cell);
+});
+
+// Fill remaining cells to complete last row (April 30 = Thursday=4, need 2 more for Fri+Sat)
+for (let i = 0; i < 2; i++) {
+  const cell = document.createElement('div');
+  cell.className = 'cal-cell empty';
+  calGrid.appendChild(cell);
+}
+
+// =====================
+// BUILD MOBILE LIST
+// =====================
+const mobileList = document.getElementById('mobile-list');
+
+DAYS.forEach(day => {
+  const dow = getDoW(day.date);
+  const isHol = dow === 0 || day.hol;
+  const isSat = dow === 6;
+
+  const dayDiv = document.createElement('div');
+  dayDiv.className = 'mobile-day';
+  dayDiv.dataset.date = day.date;
+
+  // Date header
+  const hdr = document.createElement('div');
+  const hdrClass = isHol ? 'hol-hdr' : isSat ? 'sat-hdr' : 'wd-hdr';
+  hdr.className = `mobile-date-hdr ${hdrClass}`;
+  hdr.innerHTML = `<span>${fmtDate(day.date)}</span>${day.hol ? `<span class="mobile-hol-name">${day.holName}</span>` : ''}`;
+  dayDiv.appendChild(hdr);
+
+  // Shifts area
+  const shiftsDiv = document.createElement('div');
+  shiftsDiv.className = 'mobile-shifts';
+
+  [['f','1st'],['s','2nd'],['t','3rd']].forEach(([key, lbl]) => {
+    const name = day[key];
+    const color = MEMBERS[name]?.color || '#333';
+    const div = document.createElement('div');
+    div.className = 'mobile-shift';
+    div.dataset.person = name;
+    div.innerHTML = `<span class="ms-label">${lbl}</span><span class="ms-name" style="color:${color}">${name}</span>`;
+    shiftsDiv.appendChild(div);
+  });
+
+  day.ext.forEach(e => {
+    const color = MEMBERS[e.person]?.color || '#333';
+    const div = document.createElement('div');
+    div.className = 'mobile-ext';
+    div.dataset.person = e.person;
+    div.innerHTML = `<span class="me-fac">${e.fac}</span><span class="me-name" style="color:${color}">${e.person}</span><span class="me-time">${e.time}</span>`;
+    shiftsDiv.appendChild(div);
+  });
+
+  dayDiv.appendChild(shiftsDiv);
+  mobileList.appendChild(dayDiv);
+});
+
+function makeShift(label, name) {
+  const div = document.createElement('div');
+  div.className = 'shift';
+  div.dataset.person = name;
+  const color = MEMBERS[name]?.color || '#333';
+  div.innerHTML = `<span class="shift-lbl">${label}</span><span class="shift-name" data-name="${name}" style="color:${color}">${name}</span>`;
+  return div;
+}
+
+// =====================
+// MEMBER BUTTONS
+// =====================
+let activeMembers = new Set();
+const extPanel = document.getElementById('ext-detail');
+const extList  = document.getElementById('ext-detail-list');
+const extTitle = document.getElementById('ext-detail-title');
+const bBtns = document.getElementById('b-btns');
+const cBtns = document.getElementById('c-btns');
+
+Object.entries(MEMBERS).forEach(([name, info]) => {
+  const container = info.cls === 'B' ? bBtns : cBtns;
+
+  const wrapper = document.createElement('div');
+  wrapper.style.display = 'inline-flex';
+  wrapper.style.alignItems = 'center';
+  wrapper.style.gap = '4px';
+
+  const btn = document.createElement('button');
+  btn.className = 'member-btn';
+  btn.dataset.name = name;
+  btn.style.borderColor = info.color;
+  btn.style.color = info.color;
+  btn.innerHTML = `<span class="member-dot" style="background:${info.color}"></span>${name}`;
+  btn.addEventListener('click', () => toggleMember(name));
+
+  const icsBtn = document.createElement('button');
+  icsBtn.className = 'ics-btn';
+  icsBtn.textContent = '📅 ICS';
+  icsBtn.title = `${name}の当月勤務をカレンダーに登録`;
+  icsBtn.addEventListener('click', (e) => { e.stopPropagation(); downloadICS(name); });
+
+  const printBtn = document.createElement('button');
+  printBtn.className = 'print-btn';
+  printBtn.textContent = '🖨️';
+  printBtn.title = `${name}の当直表を印刷`;
+  printBtn.addEventListener('click', (e) => { e.stopPropagation(); printForMember(name); });
+
+  wrapper.appendChild(btn);
+  wrapper.appendChild(icsBtn);
+  wrapper.appendChild(printBtn);
+  container.appendChild(wrapper);
+});
+
+function toggleMember(name) {
+  if (activeMembers.has(name)) {
+    activeMembers.delete(name);
+  } else {
+    activeMembers.add(name);
+  }
+  applyHighlight();
+}
+
+function applyHighlight() {
+  const hasActive = activeMembers.size > 0;
+
+  // Update buttons
+  document.querySelectorAll('.member-btn').forEach(btn => {
+    const n = btn.dataset.name;
+    if (activeMembers.has(n)) {
+      btn.classList.add('active');
+      btn.style.backgroundColor = MEMBERS[n].color;
+      btn.style.borderColor = MEMBERS[n].color;
+      btn.style.color = 'white';
+    } else {
+      btn.classList.remove('active');
+      btn.style.backgroundColor = 'white';
+      btn.style.borderColor = MEMBERS[n].color;
+      btn.style.color = MEMBERS[n].color;
+    }
+  });
+
+  // Update shifts (calendar + mobile)
+  document.querySelectorAll('.shift, .ext-shift, .mobile-shift, .mobile-ext').forEach(el => {
+    const person = el.dataset.person;
+    if (!hasActive) {
+      el.classList.remove('dim', 'lit');
+      el.style.outlineColor = '';
+      el.style.backgroundColor = '';
+    } else if (activeMembers.has(person)) {
+      el.classList.remove('dim');
+      el.classList.add('lit');
+      el.style.outlineColor = MEMBERS[person]?.color || '#333';
+      el.style.backgroundColor = (MEMBERS[person]?.color || '#ccc') + '22';
+    } else {
+      el.classList.add('dim');
+      el.classList.remove('lit');
+      el.style.outlineColor = '';
+      el.style.backgroundColor = '';
+    }
+  });
+
+  // Update external duty detail panel
+  updateExtDetail();
+}
+
+function updateExtDetail() {
+  if (activeMembers.size === 0) {
+    extPanel.style.display = 'none';
+    return;
+  }
+
+  const names = Array.from(activeMembers);
+  const items = [];
+
+  DAYS.forEach(day => {
+    day.ext.forEach(e => {
+      if (activeMembers.has(e.person)) {
+        items.push({ date: day.date, fac: e.fac, person: e.person, time: e.time });
+      }
+    });
+  });
+
+  extTitle.textContent = names.join('・') + ' の外勤一覧';
+  extList.innerHTML = '';
+
+  if (items.length === 0) {
+    const li = document.createElement('li');
+    li.textContent = '外勤なし';
+    extList.appendChild(li);
+  } else {
+    items.forEach(item => {
+      const li = document.createElement('li');
+      const color = MEMBERS[item.person]?.color || '#333';
+      li.innerHTML = `
+        <span class="ext-date-col">${fmtDate(item.date)}</span>
+        <span class="ext-fac-col">${item.fac}</span>
+        <span class="ext-time-col">${item.time}</span>
+      `;
+      extList.appendChild(li);
+    });
+  }
+
+  extPanel.style.display = 'block';
+}
+
+// =====================
+// ICS GENERATION
+// =====================
+const SLOTS = [
+  { key: 'f', label: '1st', summary: '阪大 1st当直',       desc: '阪大心臓血管外科 1st当直（当直）' },
+  { key: 's', label: '2nd', summary: '阪大 2nd待機',        desc: '阪大心臓血管外科 2nd待機' },
+  { key: 't', label: '3rd', summary: '阪大 3rd待機（4月限定）', desc: '阪大心臓血管外科 3rd待機 ※4月研修枠' },
+];
+
+function downloadICS(memberName) {
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//OSU CVS//当直表 2026-04//JA',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'X-WR-TIMEZONE:Asia/Tokyo',
+    'X-WR-CALNAME:' + memberName + ' 当直 2026年4月',
+    'BEGIN:VTIMEZONE',
+    'TZID:Asia/Tokyo',
+    'BEGIN:STANDARD',
+    'TZOFFSETFROM:+0900',
+    'TZOFFSETTO:+0900',
+    'TZNAME:JST',
+    'DTSTART:19700101T000000',
+    'END:STANDARD',
+    'END:VTIMEZONE',
+  ];
+
+  let uid = 1;
+
+  DAYS.forEach(day => {
+    const ds = day.date.replace(/-/g,'');
+    const nextDs = addDays(day.date, 1);
+
+    // 1st/2nd/3rd duties — all-day events
+    for (const { key, label, summary, desc } of SLOTS) {
+      if (day[key] === memberName) {
+        lines.push(
+          'BEGIN:VEVENT',
+          `UID:${label}-${day.date}-${uid++}@osu-cvs`,
+          `DTSTART;VALUE=DATE:${ds}`,
+          `DTEND;VALUE=DATE:${nextDs}`,
+          `SUMMARY:${summary}`,
+          `DESCRIPTION:${desc}`,
+          'LOCATION:大阪大学附属病院 心臓血管外科',
+          'END:VEVENT'
+        );
+      }
+    }
+
+    // External duties
+    day.ext.forEach(e => {
+      if (e.person !== memberName) return;
+      const endDs = addDays(day.date, e.icsE_d);
+      lines.push(
+        'BEGIN:VEVENT',
+        `UID:ext-${day.date}-${e.fac}-${uid++}@osu-cvs`,
+        `DTSTART;TZID=Asia/Tokyo:${ds}T${e.icsS}`,
+        `DTEND;TZID=Asia/Tokyo:${endDs}T${e.icsE_t}`,
+        `SUMMARY:外勤 ${e.fac}`,
+        `DESCRIPTION:外勤 ${e.fac}\\n${e.time}`,
+        `LOCATION:${e.fac}`,
+        'END:VEVENT'
+      );
+    });
+  });
+
+  lines.push('END:VCALENDAR');
+  const icsContent = lines.join('\r\n');
+
+  const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `当直_${memberName}_2026年4月.ics`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// =====================
+// INDIVIDUAL PRINT (popup window)
+// =====================
+function printForMember(memberName) {
+  const color = MEMBERS[memberName].color;
+  const startDow = getDoW(DAYS[0].date); // April 1 = Wednesday = 3
+  const endDow   = getDoW(DAYS[DAYS.length - 1].date);
+  const trailing  = (6 - endDow + 7) % 7;
+
+  // Build calendar cells HTML
+  let calHTML = '';
+
+  // Leading empty cells
+  for (let i = 0; i < startDow; i++) {
+    calHTML += '<div class="cal-cell empty"></div>';
+  }
+
+  DAYS.forEach(day => {
+    const dow = getDoW(day.date);
+    const d   = parseInt(day.date.slice(8));
+    const isMyShift = day.f === memberName || day.s === memberName || day.t === memberName;
+    const isMyExt   = day.ext.some(e => e.person === memberName);
+
+    let cellClass = 'cal-cell';
+    if (dow === 0 || day.hol) cellClass += ' holiday-col';
+    else if (dow === 6)       cellClass += ' sat-col';
+    if (isMyShift || isMyExt) cellClass += ' my-day';
+
+    const numClass = (dow === 0 || day.hol) ? 'hol' : dow === 6 ? 'sat' : '';
+
+    let inner = `<div class="date-num ${numClass}">${d}</div>`;
+    if (day.hol) inner += `<div class="holiday-name">${day.holName}</div>`;
+
+    [['f','1st'],['s','2nd'],['t','3rd']].forEach(([key, lbl]) => {
+      const n    = day[key];
+      const isMe = n === memberName;
+      const c    = isMe ? color : '#bbb';
+      const op   = isMe ? '1' : '0.2';
+      inner += `<div class="shift" style="opacity:${op}"><span class="shift-lbl">${lbl}</span><span class="shift-name" style="color:${c}">${n}</span></div>`;
+    });
+
+    day.ext.forEach(e => {
+      const isMe    = e.person === memberName;
+      const op      = isMe ? '1' : '0.2';
+      const ec      = isMe ? color : '#bbb';
+      const facShort = e.fac.length > 9 ? e.fac.slice(0, 9) + '…' : e.fac;
+      inner += `<div class="ext-shift" style="opacity:${op}"><span class="ext-fac">${facShort}</span><span class="ext-person" style="color:${ec}">${e.person}</span></div>`;
+    });
+
+    calHTML += `<div class="${cellClass}">${inner}</div>`;
+  });
+
+  // Trailing empty cells
+  for (let i = 0; i < trailing; i++) {
+    calHTML += '<div class="cal-cell empty"></div>';
+  }
+
+  // Build ext-duty list for this person
+  const myExts = [];
+  DAYS.forEach(day => {
+    day.ext.forEach(e => {
+      if (e.person === memberName) myExts.push({ date: day.date, fac: e.fac, time: e.time });
+    });
+  });
+  const extHTML = myExts.length === 0 ? '' : `
+    <div class="ext-list">
+      <h3>外勤一覧</h3>
+      <table>${myExts.map(e => `<tr><td>${fmtDate(e.date)}</td><td>${e.fac}</td><td>${e.time}</td></tr>`).join('')}</table>
+    </div>`;
+
+  const html = `<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8">
+<title>当直表 ${memberName} 2026年4月</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  @page { size: A4 landscape; margin: 8mm 10mm; }
+  body { font-family: 'Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic',sans-serif; background: white; }
+  h1 { font-size: 1rem; text-align: center; margin-bottom: 2mm; color: #1a1a2e; }
+  h1 small { display: block; font-size: 0.68rem; font-weight: normal; color: #666; }
+  .member-label { text-align: center; font-size: 0.85rem; font-weight: bold; color: ${color}; margin-bottom: 3mm; }
+  .cal-wrapper { border: 1px solid #bbb; }
+  .cal-header { display: grid; grid-template-columns: repeat(7, 1fr); }
+  .cal-header-cell { padding: 2px; text-align: center; font-size: 0.68rem; font-weight: bold; }
+  .cal-header-cell.sun { background: #fff0f0; color: #c0392b; }
+  .cal-header-cell.sat { background: #f0f0ff; color: #2471a3; }
+  .cal-header-cell.wd  { background: #f5f5f5; color: #333; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+  .cal-cell { border: 1px solid #ddd; padding: 2px 3px; height: 30mm; overflow: hidden; vertical-align: top; }
+  .cal-cell.holiday-col { background: #fff8f8; }
+  .cal-cell.sat-col     { background: #f8f8ff; }
+  .cal-cell.empty       { background: #f7f7f7; }
+  .cal-cell.my-day      { background: ${color}11; }
+  .date-num { font-size: 0.72rem; font-weight: bold; color: #333; margin-bottom: 1px; }
+  .date-num.hol { color: #c0392b; }
+  .date-num.sat { color: #2471a3; }
+  .holiday-name { font-size: 0.52rem; color: #c0392b; margin-bottom: 1px; }
+  .shift { display: flex; align-items: baseline; gap: 2px; font-size: 0.6rem; padding: 1px 2px; margin-bottom: 1px; border-radius: 3px; }
+  .shift-lbl { font-size: 0.52rem; color: #999; min-width: 18px; flex-shrink: 0; }
+  .shift-name { font-weight: 600; }
+  .ext-shift { display: flex; align-items: baseline; gap: 2px; font-size: 0.57rem; padding: 1px 3px; margin-bottom: 1px; border-radius: 3px; background: #f0f8ff; border-left: 2px solid #5dade2; }
+  .ext-fac  { font-size: 0.5rem; color: #555; flex-shrink: 0; max-width: 52px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ext-person { font-weight: 600; }
+  .ext-list { margin-top: 4mm; font-size: 0.78rem; }
+  .ext-list h3 { font-size: 0.82rem; margin-bottom: 2mm; border-bottom: 1px solid #ddd; padding-bottom: 1mm; }
+  .ext-list table { border-collapse: collapse; }
+  .ext-list td { padding: 1mm 4mm 1mm 0; border-bottom: 1px solid #f0f0f0; }
+  .ext-list td:first-child { color: #666; min-width: 20mm; }
+  .ext-list td:last-child  { color: #888; }
+</style></head><body>
+<h1>2026年4月 当直表<small>大阪大学心臓血管外科</small></h1>
+<div class="member-label">― ${memberName} ―</div>
+<div class="cal-wrapper">
+  <div class="cal-header">
+    <div class="cal-header-cell sun">日</div>
+    <div class="cal-header-cell wd">月</div>
+    <div class="cal-header-cell wd">火</div>
+    <div class="cal-header-cell wd">水</div>
+    <div class="cal-header-cell wd">木</div>
+    <div class="cal-header-cell wd">金</div>
+    <div class="cal-header-cell sat">土</div>
+  </div>
+  <div class="cal-grid">${calHTML}</div>
+</div>
+${extHTML}
+<script>window.onload = function(){ window.print(); };<\/script>
+</body></html>`;
+
+  const win = window.open('', '_blank', 'width=1100,height=750');
+  win.document.write(html);
+  win.document.close();
+}
+
+
+</script>
+</body>
+</html>
