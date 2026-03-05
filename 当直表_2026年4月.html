@@ -540,11 +540,9 @@ Object.entries(MEMBERS).forEach(([name, info]) => {
 });
 
 function toggleMember(name) {
-  if (activeMembers.has(name)) {
-    activeMembers.delete(name);
-  } else {
-    activeMembers.add(name);
-  }
+  const already = activeMembers.has(name);
+  activeMembers.clear();
+  if (!already) activeMembers.add(name);
   applyHighlight();
 }
 
