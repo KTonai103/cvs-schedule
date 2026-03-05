@@ -6,7 +6,7 @@
   <title>2026年4月 当直表 - 大阪大学心臓血管外科</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', 'Yu Gothic', sans-serif; background: #f0f2f5; padding: 16px; }
+    body { font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', 'Yu Gothic', sans-serif; background: #e8e6e2; padding: 16px; }
     h1 { text-align: center; margin-bottom: 16px; font-size: 1.4rem; color: #1a1a2e; }
     h1 small { display: block; font-size: 0.75rem; font-weight: normal; color: #666; margin-top: 4px; }
 
@@ -245,7 +245,7 @@
 
 <!-- Ward Print Button -->
 <div class="ward-print-bar">
-  <button class="ward-print-btn" onclick="printWard()">&#x1F5A8; 病棟掲示用 全体印刷</button>
+  <button class="ward-print-btn" onclick="printWard()">病棟掲示用 全体印刷</button>
 </div>
 
 <!-- External Duty Detail -->
@@ -523,13 +523,13 @@ Object.entries(MEMBERS).forEach(([name, info]) => {
 
   const icsBtn = document.createElement('button');
   icsBtn.className = 'ics-btn';
-  icsBtn.textContent = '📅 ICS';
+  icsBtn.textContent = 'ICS';
   icsBtn.title = `${name}の当月勤務をカレンダーに登録`;
   icsBtn.addEventListener('click', (e) => { e.stopPropagation(); downloadICS(name); });
 
   const printBtn = document.createElement('button');
   printBtn.className = 'print-btn';
-  printBtn.textContent = '🖨️';
+  printBtn.textContent = '印刷';
   printBtn.title = `${name}の当直表を印刷`;
   printBtn.addEventListener('click', (e) => { e.stopPropagation(); printForMember(name); });
 
@@ -849,6 +849,12 @@ ${extHTML}
 // =====================
 function printWard() {
   const DOW_STR = ['日','月','火','水','木','金','土'];
+  const B_COLOR = '#1a3660';   // Bクラス: ネイビー
+  const C_COLOR = '#7b1818';   // Cクラス: ダークレッド
+
+  function wardColor(name) {
+    return MEMBERS[name]?.cls === 'B' ? B_COLOR : C_COLOR;
+  }
 
   function makeRows(days) {
     return days.map(day => {
@@ -858,14 +864,11 @@ function printWard() {
       const isSat = dow === 6;
       const dateClass = isHol ? 'hol' : isSat ? 'sat' : '';
       const holSpan = day.hol ? `<span class="hol-name">${day.holName}</span>` : '';
-      const fc = MEMBERS[day.f]?.color || '#333';
-      const sc = MEMBERS[day.s]?.color || '#333';
-      const tc = MEMBERS[day.t]?.color || '#333';
       return `<tr>
-        <td class="date ${dateClass}">4/${d}(${DOW_STR[dow]})${holSpan}</td>
-        <td class="name" style="color:${fc}">${day.f}</td>
-        <td class="name" style="color:${sc}">${day.s}</td>
-        <td class="name" style="color:${tc}">${day.t}</td>
+        <td class="date ${dateClass}">4/${d}（${DOW_STR[dow]}）${holSpan}</td>
+        <td class="name" style="color:${wardColor(day.f)}">${day.f}</td>
+        <td class="name" style="color:${wardColor(day.s)}">${day.s}</td>
+        <td class="name" style="color:${wardColor(day.t)}">${day.t}</td>
       </tr>`;
     }).join('');
   }
@@ -878,33 +881,41 @@ function printWard() {
 <title>当直表 2026年4月 病棟掲示用</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  @page { size: A4 portrait; margin: 12mm 10mm; }
-  body { font-family: 'Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic',sans-serif; background: white; }
-  h1 { text-align: center; font-size: 15pt; color: #1a1a2e; margin-bottom: 7mm; }
-  h1 small { display: block; font-size: 9.5pt; font-weight: normal; color: #666; margin-top: 1.5mm; }
+  @page { size: A4 portrait; margin: 14mm 12mm; }
+  body { font-family: 'Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic',sans-serif; background: white; color: #1a1a2e; }
+  h1 { text-align: center; font-size: 14pt; font-weight: bold; letter-spacing: 0.06em; margin-bottom: 2mm; }
+  h1 small { display: block; font-size: 9pt; font-weight: normal; color: #777; margin-top: 2mm; letter-spacing: 0.03em; }
+  .divider { border: none; border-top: 1.5px solid #1a1a2e; margin: 4mm 0 7mm; }
   .columns { display: flex; gap: 5mm; align-items: flex-start; }
   .col { flex: 1; }
-  table { width: 100%; border-collapse: collapse; }
+  table { width: 100%; border-collapse: collapse; border: 1px solid #bbb; }
   thead th {
     background: #1a1a2e; color: white;
-    padding: 5pt 4pt; font-size: 9.5pt; text-align: center;
-    border: 1px solid #1a1a2e;
+    padding: 5pt 4pt; font-size: 9pt; font-weight: 600;
+    text-align: center; letter-spacing: 0.04em;
   }
-  tbody tr { border-bottom: 1px solid #e0e0e0; }
-  tbody tr:nth-child(even) { background: #f8f8f8; }
-  td { padding: 5pt 5pt; border-left: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; }
-  td.date { font-weight: bold; font-size: 10.5pt; white-space: nowrap; min-width: 19mm; }
-  td.date.hol { color: #c0392b; background: #fff4f4 !important; }
-  td.date.sat { color: #2471a3; background: #f4f4ff !important; }
-  .hol-name { font-size: 7.5pt; font-weight: normal; display: block; color: #c0392b; }
+  tbody tr { border-bottom: 1px solid #ddd; }
+  tbody tr:nth-child(even) { background: #f7f6f4; }
+  td { padding: 5.5pt 5pt; }
+  td.date { font-size: 10pt; font-weight: 600; white-space: nowrap; color: #333; min-width: 18mm; border-right: 1px solid #ddd; }
+  td.date.hol { color: #7b1818; background: #fdf5f5 !important; }
+  td.date.sat { color: #1a3660; background: #f4f6fb !important; }
+  .hol-name { font-size: 7pt; font-weight: normal; display: block; color: #999; }
   td.name { font-weight: 700; font-size: 12pt; text-align: center; }
-  table { border: 1px solid #ccc; }
+  .legend { margin-top: 5mm; font-size: 8pt; color: #666; display: flex; gap: 6mm; padding-left: 1mm; }
+  .legend-item { display: flex; align-items: center; gap: 2mm; }
+  .legend-bar { width: 10pt; height: 3pt; border-radius: 2pt; }
 </style></head><body>
 <h1>2026年4月 当直表<small>大阪大学心臓血管外科</small></h1>
+<hr class="divider">
 <div class="columns">
   <div class="col"><table>${theadHTML}<tbody>${makeRows(cols[0])}</tbody></table></div>
   <div class="col"><table>${theadHTML}<tbody>${makeRows(cols[1])}</tbody></table></div>
   <div class="col"><table>${theadHTML}<tbody>${makeRows(cols[2])}</tbody></table></div>
+</div>
+<div class="legend">
+  <div class="legend-item"><div class="legend-bar" style="background:${B_COLOR}"></div>Bクラス（藤内・濱田・多田・手繰・石津）</div>
+  <div class="legend-item"><div class="legend-bar" style="background:${C_COLOR}"></div>Cクラス（安田・藤ノ木・山下・金森・柿本・上村）</div>
 </div>
 <script>window.onload = function(){ window.print(); };<\/script>
 </body></html>`;
