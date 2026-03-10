@@ -293,9 +293,9 @@ const MEMBERS = {
 // duty times for ICS
 // ext duties: [facility, timeStr, icsStart(HHmm), icsEndOffset(minutes from start date), endDayOffset]
 const DAYS = [
-  { date:'2026-04-01', hol:false, holName:null, f:'濱田', s:'安田', t:'山下',   ext:[] },
-  { date:'2026-04-02', hol:false, holName:null, f:'多田',  s:'手繰',   t:'安田',  ext:[] },
-  { date:'2026-04-03', hol:false, holName:null, f:'石津',  s:'金森',   t:'柿本',  ext:[] },
+  { date:'2026-04-01', hol:false, holName:null, f:'濱田', s:'金森', t:'山下',   ext:[] },
+  { date:'2026-04-02', hol:false, holName:null, f:'多田',  s:'藤ノ木',   t:'安田',  ext:[] },
+  { date:'2026-04-03', hol:false, holName:null, f:'石津',  s:'上村',   t:'柿本',  ext:[] },
   { date:'2026-04-04', hol:false, holName:null, f:'濱田',  s:'山下',   t:'金森',  ext:[
     { fac:'協和会（日当直）', person:'藤内',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
     { fac:'甲聖会（日直）',   person:'安田',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
@@ -305,11 +305,11 @@ const DAYS = [
   { date:'2026-04-05', hol:false, holName:null, f:'多田',  s:'柿本',   t:'上村',  ext:[
     { fac:'辻本（日当直）',   person:'石津',   time:'09:00〜翌06:30', icsS:'090000', icsE_d:1, icsE_t:'063000' },
   ]},
-  { date:'2026-04-06', hol:false, holName:null, f:'藤内',  s:'上村',   t:'山下',  ext:[] },
-  { date:'2026-04-07', hol:false, holName:null, f:'石津',  s:'濱田',   t:'藤ノ木', ext:[] },
-  { date:'2026-04-08', hol:false, holName:null, f:'手繰',  s:'多田',   t:'安田',  ext:[] },
-  { date:'2026-04-09', hol:false, holName:null, f:'藤内',  s:'安田',   t:'金森',  ext:[] },
-  { date:'2026-04-10', hol:false, holName:null, f:'手繰',  s:'石津',   t:'柿本',  ext:[] },
+  { date:'2026-04-06', hol:false, holName:null, f:'藤内',  s:'安田',   t:'山下',  ext:[] },
+  { date:'2026-04-07', hol:false, holName:null, f:'石津',  s:'上村',   t:'藤ノ木', ext:[] },
+  { date:'2026-04-08', hol:false, holName:null, f:'手繰',  s:'山下',   t:'安田',  ext:[] },
+  { date:'2026-04-09', hol:false, holName:null, f:'藤内',  s:'藤ノ木',   t:'金森',  ext:[] },
+  { date:'2026-04-10', hol:false, holName:null, f:'手繰',  s:'安田',   t:'柿本',  ext:[] },
   { date:'2026-04-11', hol:false, holName:null, f:'多田',  s:'金森',   t:'上村',  ext:[
     { fac:'協和会（日当直）', person:'石津',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
     { fac:'甲聖会（日当直）', person:'山下',   time:'08:00〜翌08:00', icsS:'080000', icsE_d:1, icsE_t:'080000' },
@@ -317,26 +317,26 @@ const DAYS = [
     { fac:'加納生協',         person:'柿本',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
     { fac:'ここしあ診療所',   person:'藤内',   time:'09:00〜17:00',   icsS:'090000', icsE_d:0, icsE_t:'170000' },
   ]},
-  { date:'2026-04-12', hol:false, holName:null, f:'藤内',  s:'手繰',   t:'山下',  ext:[
+  { date:'2026-04-12', hol:false, holName:null, f:'藤内',  s:'安田',   t:'山下',  ext:[
     { fac:'甲聖会（日当直）', person:'濱田',   time:'08:00〜翌07:30', icsS:'080000', icsE_d:1, icsE_t:'073000' },
   ]},
-  { date:'2026-04-13', hol:false, holName:null, f:'石津',  s:'藤ノ木', t:'金森',  ext:[] },
-  { date:'2026-04-14', hol:false, holName:null, f:'濱田',  s:'上村',   t:'藤ノ木', ext:[] },
-  { date:'2026-04-15', hol:false, holName:null, f:'藤内',  s:'山下',   t:'柿本',  ext:[] },
-  { date:'2026-04-16', hol:false, holName:null, f:'手繰',  s:'安田',   t:'藤ノ木', ext:[] },
-  { date:'2026-04-17', hol:false, holName:null, f:'石津',  s:'藤内',   t:'上村',  ext:[] },
-  { date:'2026-04-18', hol:false, holName:null, f:'濱田',  s:'山下',   t:'柿本',  ext:[
+  { date:'2026-04-13', hol:false, holName:null, f:'石津',  s:'柿本', t:'金森',  ext:[] },
+  { date:'2026-04-14', hol:false, holName:null, f:'濱田',  s:'山下',   t:'藤ノ木', ext:[] },
+  { date:'2026-04-15', hol:false, holName:null, f:'藤内',  s:'金森',   t:'柿本',  ext:[] },
+  { date:'2026-04-16', hol:false, holName:null, f:'手繰',  s:'山下',   t:'藤ノ木', ext:[] },
+  { date:'2026-04-17', hol:false, holName:null, f:'石津',  s:'柿本',   t:'上村',  ext:[] },
+  { date:'2026-04-18', hol:false, holName:null, f:'濱田',  s:'金森',   t:'柿本',  ext:[
     { fac:'協和会（日当直）', person:'手繰',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
     { fac:'甲聖会（日直）',   person:'多田',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
     { fac:'加納生協',         person:'藤ノ木', time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
     { fac:'常岡病院',         person:'藤内',   time:'09:00〜13:00',   icsS:'090000', icsE_d:0, icsE_t:'130000' },
   ]},
-  { date:'2026-04-19', hol:false, holName:null, f:'藤内',  s:'金森',   t:'安田',  ext:[] },
-  { date:'2026-04-20', hol:false, holName:null, f:'石津',  s:'濱田',   t:'山下',  ext:[] },
+  { date:'2026-04-19', hol:false, holName:null, f:'藤内',  s:'上村',   t:'安田',  ext:[] },
+  { date:'2026-04-20', hol:false, holName:null, f:'石津',  s:'柿本',   t:'山下',  ext:[] },
   { date:'2026-04-21', hol:false, holName:null, f:'多田',  s:'安田',   t:'藤ノ木', ext:[] },
-  { date:'2026-04-22', hol:false, holName:null, f:'手繰',  s:'柿本',   t:'上村',  ext:[] },
-  { date:'2026-04-23', hol:false, holName:null, f:'濱田',  s:'上村',   t:'柿本',  ext:[] },
-  { date:'2026-04-24', hol:false, holName:null, f:'多田',  s:'石津',   t:'金森',  ext:[] },
+  { date:'2026-04-22', hol:false, holName:null, f:'手繰',  s:'山下',   t:'上村',  ext:[] },
+  { date:'2026-04-23', hol:false, holName:null, f:'濱田',  s:'藤ノ木',   t:'柿本',  ext:[] },
+  { date:'2026-04-24', hol:false, holName:null, f:'多田',  s:'上村',   t:'金森',  ext:[] },
   { date:'2026-04-25', hol:false, holName:null, f:'手繰',  s:'金森',   t:'藤ノ木', ext:[
     { fac:'甲聖会（日直）',   person:'山下',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
     { fac:'東大阪生協',       person:'上村',   time:'09:00〜12:30',   icsS:'090000', icsE_d:0, icsE_t:'123000' },
@@ -347,12 +347,12 @@ const DAYS = [
   { date:'2026-04-26', hol:false, holName:null, f:'多田',  s:'藤ノ木', t:'安田',  ext:[
     { fac:'協和会（日当直）', person:'濱田',   time:'09:00〜翌07:30', icsS:'090000', icsE_d:1, icsE_t:'073000' },
   ]},
-  { date:'2026-04-27', hol:false, holName:null, f:'手繰',  s:'石津',   t:'安田',  ext:[] },
-  { date:'2026-04-28', hol:false, holName:null, f:'濱田',  s:'藤内',   t:'上村',  ext:[] },
-  { date:'2026-04-29', hol:true,  holName:'昭和の日', f:'石津', s:'藤ノ木', t:'山下', ext:[
+  { date:'2026-04-27', hol:false, holName:null, f:'手繰',  s:'柿本',   t:'安田',  ext:[] },
+  { date:'2026-04-28', hol:false, holName:null, f:'濱田',  s:'藤ノ木',   t:'上村',  ext:[] },
+  { date:'2026-04-29', hol:true,  holName:'昭和の日', f:'石津', s:'安田', t:'山下', ext:[
     { fac:'協和会（日当直）', person:'金森',   time:'09:00〜翌07:30', icsS:'090000', icsE_d:1, icsE_t:'073000' },
   ]},
-  { date:'2026-04-30', hol:false, holName:null, f:'藤内',  s:'多田',   t:'金森',  ext:[] },
+  { date:'2026-04-30', hol:false, holName:null, f:'藤内',  s:'上村',   t:'金森',  ext:[] },
 ];
 
 
