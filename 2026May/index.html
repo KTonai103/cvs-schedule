@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>2026年4月 当直表 - 大阪大学心臓血管外科</title>
+  <title>2026年5月 当直表 - 大阪大学心臓血管外科</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', 'Yu Gothic', sans-serif; background: #e8e6e2; padding: 16px; }
@@ -233,7 +233,7 @@
 </head>
 <body>
 
-<h1>2026年4月 当直表<small>大阪大学心臓血管外科</small></h1>
+<h1>2026年5月 当直表<small>大阪大学心臓血管外科</small></h1>
 <div class="print-title" id="print-title" style="display:none;"></div>
 
 <!-- Member Buttons -->
@@ -248,7 +248,7 @@
   </div>
   <div class="icu-row">
     <div class="icu-label">ICU出向</div>
-    <span class="icu-badge">🏥 大山（今月ICU出向中）</span>
+    <span class="icu-badge">🏥 藤ノ木（今月ICU出向中）</span>
   </div>
 </div>
 
@@ -292,77 +292,90 @@ const MEMBERS = {
   '多田':  { cls: 'B', color: '#d4ac0d' },
   '手繰':  { cls: 'B', color: '#27ae60' },
   '石津':  { cls: 'B', color: '#2471a3' },
-  '安田':  { cls: 'C', color: '#8e44ad' },
-  '藤ノ木':{ cls: 'C', color: '#16a085' },
+  '大山':  { cls: 'C', color: '#8e44ad' },
+  '安田':  { cls: 'C', color: '#16a085' },
   '山下':  { cls: 'C', color: '#6d4c41' },
   '金森':  { cls: 'C', color: '#c0392b' },
   '柿本':  { cls: 'C', color: '#7f8c8d' },
   '上村':  { cls: 'C', color: '#1a8a6e' },
 };
 
-// duty times for ICS
-// ext duties: [facility, timeStr, icsStart(HHmm), icsEndOffset(minutes from start date), endDayOffset]
 const DAYS = [
-  { date:'2026-04-01', hol:false, holName:null, f:'濱田', s:'金森', t:'山下',   ext:[] },
-  { date:'2026-04-02', hol:false, holName:null, f:'多田',  s:'山下',   t:'安田',  ext:[] },
-  { date:'2026-04-03', hol:false, holName:null, f:'石津',  s:'上村',   t:'柿本',  ext:[] },
-  { date:'2026-04-04', hol:false, holName:null, f:'濱田',  s:'藤ノ木',   t:'金森',  ext:[
-    { fac:'協和会（日当直）', person:'藤内',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
-    { fac:'甲聖会（日直）',   person:'安田',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
-    { fac:'加納生協',         person:'多田',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
-    { fac:'辻本（日当直）',   person:'手繰',   time:'13:00〜翌09:00', icsS:'130000', icsE_d:1, icsE_t:'090000' },
-  ]},
-  { date:'2026-04-05', hol:false, holName:null, f:'多田',  s:'柿本',   t:'上村',  ext:[
-    { fac:'辻本（日当直）',   person:'石津',   time:'09:00〜翌06:30', icsS:'090000', icsE_d:1, icsE_t:'063000' },
-  ]},
-  { date:'2026-04-06', hol:false, holName:null, f:'藤内',  s:'安田',   t:'山下',  ext:[] },
-  { date:'2026-04-07', hol:false, holName:null, f:'石津',  s:'上村',   t:'藤ノ木', ext:[] },
-  { date:'2026-04-08', hol:false, holName:null, f:'手繰',  s:'山下',   t:'安田',  ext:[] },
-  { date:'2026-04-09', hol:false, holName:null, f:'藤内',  s:'藤ノ木',   t:'金森',  ext:[] },
-  { date:'2026-04-10', hol:false, holName:null, f:'手繰',  s:'安田',   t:'柿本',  ext:[] },
-  { date:'2026-04-11', hol:false, holName:null, f:'多田',  s:'金森',   t:'上村',  ext:[
-    { fac:'協和会（日当直）', person:'石津',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
-    { fac:'甲聖会（日当直）', person:'山下',   time:'08:00〜翌08:00', icsS:'080000', icsE_d:1, icsE_t:'080000' },
-    { fac:'東大阪生協',       person:'藤ノ木', time:'09:00〜12:30',   icsS:'090000', icsE_d:0, icsE_t:'123000' },
-    { fac:'加納生協',         person:'柿本',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
-    { fac:'ここしあ診療所',   person:'藤内',   time:'09:00〜17:00',   icsS:'090000', icsE_d:0, icsE_t:'170000' },
-  ]},
-  { date:'2026-04-12', hol:false, holName:null, f:'藤内',  s:'安田',   t:'山下',  ext:[
-    { fac:'甲聖会（日当直）', person:'濱田',   time:'08:00〜翌07:30', icsS:'080000', icsE_d:1, icsE_t:'073000' },
-  ]},
-  { date:'2026-04-13', hol:false, holName:null, f:'石津',  s:'柿本', t:'金森',  ext:[] },
-  { date:'2026-04-14', hol:false, holName:null, f:'濱田',  s:'山下',   t:'藤ノ木', ext:[] },
-  { date:'2026-04-15', hol:false, holName:null, f:'藤内',  s:'金森',   t:'柿本',  ext:[] },
-  { date:'2026-04-16', hol:false, holName:null, f:'手繰',  s:'山下',   t:'藤ノ木', ext:[] },
-  { date:'2026-04-17', hol:false, holName:null, f:'石津',  s:'柿本',   t:'上村',  ext:[] },
-  { date:'2026-04-18', hol:false, holName:null, f:'濱田',  s:'金森',   t:'柿本',  ext:[
-    { fac:'協和会（日当直）', person:'手繰',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
-    { fac:'甲聖会（日直）',   person:'多田',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
-    { fac:'加納生協',         person:'藤ノ木', time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
+  { date:'2026-05-01', hol:false, holName:null, f:'藤内', s:'大山', ext:[] },
+  { date:'2026-05-02', hol:false, holName:null, f:'安田', s:'石津', ext:[
+    { fac:'協和会（日当直）', person:'多田',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
+    { fac:'甲聖会（日直）',   person:'山下',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
+    { fac:'加納生協',         person:'大山',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
+    { fac:'辻本（日当直）',   person:'上村',   time:'13:00〜翌09:00', icsS:'130000', icsE_d:1, icsE_t:'090000' },
     { fac:'常岡病院',         person:'藤内',   time:'09:00〜13:00',   icsS:'090000', icsE_d:0, icsE_t:'130000' },
   ]},
-  { date:'2026-04-19', hol:false, holName:null, f:'藤内',  s:'上村',   t:'安田',  ext:[] },
-  { date:'2026-04-20', hol:false, holName:null, f:'石津',  s:'柿本',   t:'山下',  ext:[] },
-  { date:'2026-04-21', hol:false, holName:null, f:'多田',  s:'安田',   t:'藤ノ木', ext:[] },
-  { date:'2026-04-22', hol:false, holName:null, f:'手繰',  s:'山下',   t:'上村',  ext:[] },
-  { date:'2026-04-23', hol:false, holName:null, f:'濱田',  s:'藤ノ木',   t:'柿本',  ext:[] },
-  { date:'2026-04-24', hol:false, holName:null, f:'多田',  s:'上村',   t:'金森',  ext:[] },
-  { date:'2026-04-25', hol:false, holName:null, f:'手繰',  s:'金森',   t:'藤ノ木', ext:[
-    { fac:'甲聖会（日直）',   person:'山下',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
+  { date:'2026-05-03', hol:true, holName:'憲法記念日', f:'山下', s:'多田', ext:[
+    { fac:'辻本（日当直）',   person:'手繰',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
+  ]},
+  { date:'2026-05-04', hol:true, holName:'みどりの日', f:'柿本', s:'石津', ext:[
+    { fac:'協和会（日当直）', person:'濱田',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
+  ]},
+  { date:'2026-05-05', hol:true, holName:'こどもの日', f:'金森', s:'濱田', ext:[
+    { fac:'協和会（日当直）', person:'大山',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
+  ]},
+  { date:'2026-05-06', hol:true, holName:'振替休日', f:'上村', s:'藤内', ext:[
+    { fac:'協和会（日当直）', person:'石津',   time:'09:00〜翌07:30', icsS:'090000', icsE_d:1, icsE_t:'073000' },
+  ]},
+  { date:'2026-05-07', hol:false, holName:null, f:'濱田', s:'金森', ext:[] },
+  { date:'2026-05-08', hol:false, holName:null, f:'石津', s:'上村', ext:[] },
+  { date:'2026-05-09', hol:false, holName:null, f:'大山', s:'濱田', ext:[
+    { fac:'協和会（日当直）', person:'手繰',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
+    { fac:'甲聖会（日当直）', person:'山下',   time:'08:00〜翌08:00', icsS:'080000', icsE_d:1, icsE_t:'080000' },
     { fac:'東大阪生協',       person:'上村',   time:'09:00〜12:30',   icsS:'090000', icsE_d:0, icsE_t:'123000' },
-    { fac:'加納生協',         person:'安田',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
+    { fac:'加納生協',         person:'金森',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
+    { fac:'ここしあ診療所',   person:'藤内',   time:'09:00〜17:00',   icsS:'090000', icsE_d:0, icsE_t:'170000' },
+  ]},
+  { date:'2026-05-10', hol:false, holName:null, f:'山下', s:'石津', ext:[
+    { fac:'甲聖会（日当直）', person:'多田',   time:'08:00〜翌07:30', icsS:'080000', icsE_d:1, icsE_t:'073000' },
+  ]},
+  { date:'2026-05-11', hol:false, holName:null, f:'多田', s:'安田', ext:[] },
+  { date:'2026-05-12', hol:false, holName:null, f:'柿本', s:'手繰', ext:[] },
+  { date:'2026-05-13', hol:false, holName:null, f:'藤内', s:'柿本', ext:[] },
+  { date:'2026-05-14', hol:false, holName:null, f:'金森', s:'濱田', ext:[] },
+  { date:'2026-05-15', hol:false, holName:null, f:'手繰', s:'山下', ext:[] },
+  { date:'2026-05-16', hol:false, holName:null, f:'安田', s:'藤内', ext:[
+    { fac:'協和会（日当直）', person:'多田',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
+    { fac:'甲聖会（日直）',   person:'山下',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
+    { fac:'加納生協',         person:'濱田',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
+  ]},
+  { date:'2026-05-17', hol:false, holName:null, f:'濱田', s:'山下', ext:[] },
+  { date:'2026-05-18', hol:false, holName:null, f:'安田', s:'石津', ext:[] },
+  { date:'2026-05-19', hol:false, holName:null, f:'柿本', s:'多田', ext:[] },
+  { date:'2026-05-20', hol:false, holName:null, f:'濱田', s:'上村', ext:[] },
+  { date:'2026-05-21', hol:false, holName:null, f:'山下', s:'藤内', ext:[] },
+  { date:'2026-05-22', hol:false, holName:null, f:'石津', s:'大山', ext:[] },
+  { date:'2026-05-23', hol:false, holName:null, f:'多田', s:'安田', ext:[
+    { fac:'甲聖会（日直）',   person:'山下',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
+    { fac:'東大阪生協',       person:'大山',   time:'09:00〜12:30',   icsS:'090000', icsE_d:0, icsE_t:'123000' },
+    { fac:'加納生協',         person:'金森',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
+    { fac:'辻本（日当直）',   person:'手繰',   time:'13:00〜翌09:00', icsS:'130000', icsE_d:1, icsE_t:'090000' },
+    { fac:'ここしあ診療所',   person:'濱田',   time:'09:00〜17:00',   icsS:'090000', icsE_d:0, icsE_t:'170000' },
+  ]},
+  { date:'2026-05-24', hol:false, holName:null, f:'手繰', s:'金森', ext:[
+    { fac:'協和会（日当直）', person:'柿本',   time:'09:00〜翌07:30', icsS:'090000', icsE_d:1, icsE_t:'073000' },
+  ]},
+  { date:'2026-05-25', hol:false, holName:null, f:'上村', s:'多田', ext:[] },
+  { date:'2026-05-26', hol:false, holName:null, f:'多田', s:'金森', ext:[] },
+  { date:'2026-05-27', hol:false, holName:null, f:'大山', s:'濱田', ext:[] },
+  { date:'2026-05-28', hol:false, holName:null, f:'手繰', s:'安田', ext:[] },
+  { date:'2026-05-29', hol:false, holName:null, f:'藤内', s:'柿本', ext:[] },
+  { date:'2026-05-30', hol:false, holName:null, f:'大山', s:'多田', ext:[
+    { fac:'協和会（日当直）', person:'濱田',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
+    { fac:'甲聖会（日当直）', person:'金森',   time:'08:00〜翌08:00', icsS:'080000', icsE_d:1, icsE_t:'080000' },
+    { fac:'加納生協',         person:'柿本',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
     { fac:'辻本（日当直）',   person:'石津',   time:'13:00〜翌09:00', icsS:'130000', icsE_d:1, icsE_t:'090000' },
-    { fac:'ここしあ診療所',   person:'柿本',   time:'09:00〜17:00',   icsS:'090000', icsE_d:0, icsE_t:'170000' },
+    { fac:'ここしあ診療所',   person:'藤内',   time:'09:00〜17:00',   icsS:'090000', icsE_d:0, icsE_t:'170000' },
+    { fac:'牧野病院',         person:'上村',   time:'17:00〜翌09:00', icsS:'170000', icsE_d:1, icsE_t:'090000' },
   ]},
-  { date:'2026-04-26', hol:false, holName:null, f:'多田',  s:'藤ノ木', t:'安田',  ext:[
-    { fac:'協和会（日当直）', person:'濱田',   time:'09:00〜翌07:30', icsS:'090000', icsE_d:1, icsE_t:'073000' },
+  { date:'2026-05-31', hol:false, holName:null, f:'石津', s:'山下', ext:[
+    { fac:'甲聖会（日当直）', person:'安田',   time:'08:00〜翌07:30', icsS:'080000', icsE_d:1, icsE_t:'073000' },
+    { fac:'辻本（日当直）',   person:'多田',   time:'09:00〜翌06:30', icsS:'090000', icsE_d:1, icsE_t:'063000' },
   ]},
-  { date:'2026-04-27', hol:false, holName:null, f:'手繰',  s:'柿本',   t:'安田',  ext:[] },
-  { date:'2026-04-28', hol:false, holName:null, f:'濱田',  s:'藤ノ木',   t:'上村',  ext:[] },
-  { date:'2026-04-29', hol:true,  holName:'昭和の日', f:'石津', s:'安田', t:'山下', ext:[
-    { fac:'協和会（日当直）', person:'金森',   time:'09:00〜翌07:30', icsS:'090000', icsE_d:1, icsE_t:'073000' },
-  ]},
-  { date:'2026-04-30', hol:false, holName:null, f:'藤内',  s:'上村',   t:'金森',  ext:[] },
 ];
 
 
@@ -398,9 +411,9 @@ function fmtDate(dateStr) {
 // =====================
 const calGrid = document.getElementById('cal-grid');
 
-// April 2026: April 1 is Wednesday (dow=3). Grid starts Sunday.
-// Fill 3 empty cells before April 1 (Sun, Mon, Tue)
-for (let i = 0; i < 3; i++) {
+// May 2026: May 1 is Friday (dow=5). Grid starts Sunday.
+// Fill 5 empty cells before May 1 (Sun, Mon, Tue, Wed, Thu)
+for (let i = 0; i < 5; i++) {
   const cell = document.createElement('div');
   cell.className = 'cal-cell empty';
   calGrid.appendChild(cell);
@@ -427,8 +440,6 @@ DAYS.forEach(day => {
   cell.appendChild(makeShift('1st', day.f));
   // 2nd
   cell.appendChild(makeShift('2nd', day.s));
-  // 3rd
-  cell.appendChild(makeShift('3rd', day.t));
   // ext
   day.ext.forEach(e => {
     const div = document.createElement('div');
@@ -442,8 +453,8 @@ DAYS.forEach(day => {
   calGrid.appendChild(cell);
 });
 
-// Fill remaining cells to complete last row (April 30 = Thursday=4, need 2 more for Fri+Sat)
-for (let i = 0; i < 2; i++) {
+// Fill remaining cells to complete last row (May 31 = Sunday = dow 0, need 6 more for Mon-Sat)
+for (let i = 0; i < 6; i++) {
   const cell = document.createElement('div');
   cell.className = 'cal-cell empty';
   calGrid.appendChild(cell);
@@ -474,7 +485,7 @@ DAYS.forEach(day => {
   const shiftsDiv = document.createElement('div');
   shiftsDiv.className = 'mobile-shifts';
 
-  [['f','1st'],['s','2nd'],['t','3rd']].forEach(([key, lbl]) => {
+  [['f','1st'],['s','2nd']].forEach(([key, lbl]) => {
     const name = day[key];
     const color = MEMBERS[name]?.color || '#333';
     const div = document.createElement('div');
@@ -646,18 +657,17 @@ function updateExtDetail() {
 const SLOTS = [
   { key: 'f', label: '1st', summary: '阪大 1st当直',       desc: '阪大心臓血管外科 1st当直（当直）' },
   { key: 's', label: '2nd', summary: '阪大 2nd待機',        desc: '阪大心臓血管外科 2nd待機' },
-  { key: 't', label: '3rd', summary: '阪大 3rd待機（4月限定）', desc: '阪大心臓血管外科 3rd待機 ※4月研修枠' },
 ];
 
 function downloadICS(memberName) {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//OSU CVS//当直表 2026-04//JA',
+    'PRODID:-//OSU CVS//当直表 2026-05//JA',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'X-WR-TIMEZONE:Asia/Tokyo',
-    'X-WR-CALNAME:' + memberName + ' 当直 2026年4月',
+    'X-WR-CALNAME:' + memberName + ' 当直 2026年5月',
     'BEGIN:VTIMEZONE',
     'TZID:Asia/Tokyo',
     'BEGIN:STANDARD',
@@ -675,7 +685,7 @@ function downloadICS(memberName) {
     const ds = day.date.replace(/-/g,'');
     const nextDs = addDays(day.date, 1);
 
-    // 1st/2nd/3rd duties — all-day events
+    // 1st/2nd duties — all-day events
     for (const { key, label, summary, desc } of SLOTS) {
       if (day[key] === memberName) {
         lines.push(
@@ -715,7 +725,7 @@ function downloadICS(memberName) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `schedule_2026Apr_${memberName}.ics`;
+  a.download = `schedule_2026May_${memberName}.ics`;
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -725,7 +735,7 @@ function downloadICS(memberName) {
 // =====================
 function printForMember(memberName) {
   const color = MEMBERS[memberName].color;
-  const startDow = getDoW(DAYS[0].date); // April 1 = Wednesday = 3
+  const startDow = getDoW(DAYS[0].date); // May 1 = Friday = 5
   const endDow   = getDoW(DAYS[DAYS.length - 1].date);
   const trailing  = (6 - endDow + 7) % 7;
 
@@ -740,7 +750,7 @@ function printForMember(memberName) {
   DAYS.forEach(day => {
     const dow = getDoW(day.date);
     const d   = parseInt(day.date.slice(8));
-    const isMyShift = day.f === memberName || day.s === memberName || day.t === memberName;
+    const isMyShift = day.f === memberName || day.s === memberName;
     const isMyExt   = day.ext.some(e => e.person === memberName);
 
     let cellClass = 'cal-cell';
@@ -753,7 +763,7 @@ function printForMember(memberName) {
     let inner = `<div class="date-num ${numClass}">${d}</div>`;
     if (day.hol) inner += `<div class="holiday-name">${day.holName}</div>`;
 
-    [['f','1st'],['s','2nd'],['t','3rd']].forEach(([key, lbl]) => {
+    [['f','1st'],['s','2nd']].forEach(([key, lbl]) => {
       const n    = day[key];
       const isMe = n === memberName;
       const c    = isMe ? color : '#bbb';
@@ -792,7 +802,7 @@ function printForMember(memberName) {
 
   const html = `<!DOCTYPE html>
 <html lang="ja"><head><meta charset="UTF-8">
-<title>当直表 ${memberName} 2026年4月</title>
+<title>当直表 ${memberName} 2026年5月</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   @page { size: A4 landscape; margin: 8mm 10mm; }
@@ -829,7 +839,7 @@ function printForMember(memberName) {
   .ext-list td:first-child { color: #666; min-width: 20mm; }
   .ext-list td:last-child  { color: #888; }
 </style></head><body>
-<h1>2026年4月 当直表<small>大阪大学心臓血管外科</small></h1>
+<h1>2026年5月 当直表<small>大阪大学心臓血管外科</small></h1>
 <div class="member-label">― ${memberName} ―</div>
 <div class="cal-wrapper">
   <div class="cal-header">
@@ -854,6 +864,9 @@ ${extHTML}
 
 
 // =====================
+// WARD PRINT (全体・病棟掲示用)
+// =====================
+// =====================
 // TODAY HIGHLIGHT
 // =====================
 (function highlightToday() {
@@ -874,15 +887,12 @@ ${extHTML}
   });
 })();
 
-// =====================
-// WARD PRINT (全体・病棟掲示用)
-// =====================
 function printWard() {
   // Generate QR code linking to online schedule
   let qrImg = '';
   if (typeof qrcode === 'function') {
     const qr = qrcode(0, 'M');
-    qr.addData('https://ktonai103.github.io/cvs-schedule/2026April/');
+    qr.addData('https://ktonai103.github.io/cvs-schedule/2026May/');
     qr.make();
     qrImg = qr.createDataURL(3, 0);
   }
@@ -904,20 +914,19 @@ function printWard() {
       const dateClass = isHol ? 'hol' : isSat ? 'sat' : '';
       const holSpan = day.hol ? `<span class="hol-name">${day.holName}</span>` : '';
       return `<tr>
-        <td class="date ${dateClass}">4/${d}（${DOW_STR[dow]}）${holSpan}</td>
+        <td class="date ${dateClass}">5/${d}（${DOW_STR[dow]}）${holSpan}</td>
         <td class="name" style="color:${wardColor(day.f)}">${day.f}</td>
         <td class="name" style="color:${wardColor(day.s)}">${day.s}</td>
-        <td class="name" style="color:${wardColor(day.t)}">${day.t}</td>
       </tr>`;
     }).join('');
   }
 
-  const cols = [DAYS.slice(0,10), DAYS.slice(10,20), DAYS.slice(20,30)];
-  const theadHTML = '<thead><tr><th>日付</th><th>1st</th><th>2nd</th><th>3rd</th></tr></thead>';
+  const cols = [DAYS.slice(0,11), DAYS.slice(11,21), DAYS.slice(21,31)];
+  const theadHTML = '<thead><tr><th>日付</th><th>1st</th><th>2nd</th></tr></thead>';
 
   const html = `<!DOCTYPE html>
 <html lang="ja"><head><meta charset="UTF-8">
-<title>当直表 2026年4月 病棟掲示用</title>
+<title>当直表 2026年5月 病棟掲示用</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   @page { size: A4 portrait; margin: 14mm 12mm; }
@@ -951,7 +960,7 @@ function printWard() {
   .qr-area span { display: block; font-size: 6.5pt; color: #888; margin-top: 1mm; }
 </style></head><body>
 <div class="header-row">
-  <h1>2026年4月 当直表<small>大阪大学心臓血管外科</small></h1>
+  <h1>2026年5月 当直表<small>大阪大学心臓血管外科</small></h1>
   ${qrImg ? '<div class="qr-area"><img src="'+qrImg+'"><span>オンライン版</span></div>' : ''}
 </div>
 <hr class="divider">
@@ -962,7 +971,7 @@ function printWard() {
 </div>
 <div class="legend">
   <div class="legend-item"><div class="legend-bar" style="background:${B_COLOR}"></div>Bクラス（藤内・濱田・多田・手繰・石津）</div>
-  <div class="legend-item"><div class="legend-bar" style="background:${C_COLOR}"></div>Cクラス（安田・藤ノ木・山下・金森・柿本・上村）</div>
+  <div class="legend-item"><div class="legend-bar" style="background:${C_COLOR}"></div>Cクラス（大山・安田・山下・金森・柿本・上村）</div>
 </div>
 <script>window.onload = function(){ window.print(); };<\/script>
 </body></html>`;
