@@ -3,54 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>大阪大学心臓血管外科 当直表</title>
+  <title>当直表 | 大阪大学心臓血管外科</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; background: #f0f2f5; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 16px; }
-    h1 { font-size: 1.3rem; color: #1a1a2e; margin-bottom: 6px; text-align: center; }
-    .subtitle { font-size: 0.82rem; color: #777; margin-bottom: 36px; text-align: center; }
-    .grid { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; max-width: 800px; width: 100%; }
-    .card { background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); width: 220px; overflow: hidden; color: inherit; }
-    .card-header { background: #1a1a2e; color: white; padding: 14px 16px; }
-    .card-header .year { font-size: 0.75rem; opacity: .7; }
-    .card-header .month { font-size: 1.2rem; font-weight: bold; }
-    .card-body { padding: 14px 16px; }
-    .card-link { display: flex; align-items: center; gap: 8px; font-size: 0.84rem; color: #2471a3; padding: 5px 0; border-bottom: 1px solid #f0f0f0; text-decoration: none; }
-    .card-link:last-child { border-bottom: none; }
-    .card-link:hover { color: #1a5276; }
-    .card-link .icon { font-size: 1rem; }
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      background: #f5f6f8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 16px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .header h1 {
+      font-size: 1.1rem;
+      color: #1a1a2e;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .list a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      text-decoration: none;
+      color: #1a1a2e;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background 0.15s;
+    }
+    .list a:last-child { border-bottom: none; }
+    .list a:hover { background: #f8f9fb; }
+    .list .label {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .list .arrow {
+      color: #bbb;
+      font-size: 1.1rem;
+    }
+    .footer {
+      margin-top: 32px;
+      font-size: 0.75rem;
+      color: #aaa;
+    }
   </style>
 </head>
 <body>
-  <h1>大阪大学心臓血管外科</h1>
-  <p class="subtitle">当直表 一覧</p>
-
-  <div class="grid">
-
-    <div class="card">
-      <div class="card-header">
-        <div class="year">2026年</div>
-        <div class="month">4月</div>
-      </div>
-      <div class="card-body">
-        <a class="card-link" href="2026April/index.html"><span class="icon">&#x1F4C5;</span>当直表（カレンダー）</a>
-        <a class="card-link" href="2026April/summary.html"><span class="icon">&#x1F4CA;</span>集計表</a>
-        <a class="card-link" href="2026April/mail.html"><span class="icon">&#x2709;&#xFE0F;</span>外勤先通知メール</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="year">2026年</div>
-        <div class="month">5月</div>
-      </div>
-      <div class="card-body">
-        <a class="card-link" href="2026May/index.html"><span class="icon">&#x1F4C5;</span>当直表（カレンダー）</a>
-        <a class="card-link" href="2026May/summary.html"><span class="icon">&#x1F4CA;</span>集計表</a>
-        <a class="card-link" href="2026May/mail.html"><span class="icon">&#x2709;&#xFE0F;</span>外勤先通知メール</a>
-      </div>
-    </div>
-
+  <div class="header">
+    <h1>大阪大学心臓血管外科 当直表</h1>
   </div>
+
+  <div class="list">
+    <a href="2026April/index.html">
+      <span class="label">2026年 4月</span>
+      <span class="arrow">&#x203A;</span>
+    </a>
+    <a href="2026May/index.html">
+      <span class="label">2026年 5月</span>
+      <span class="arrow">&#x203A;</span>
+    </a>
+  </div>
+
+  <div class="footer">CVS Schedule</div>
 </body>
 </html>
