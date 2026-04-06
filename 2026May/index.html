@@ -883,7 +883,11 @@ ${extHTML}
 
   // Mobile list view
   document.querySelectorAll('.mobile-day[data-date]').forEach(card => {
-    if (card.dataset.date === todayStr) card.classList.add('today');
+    if (card.dataset.date === todayStr) {
+      card.classList.add('today');
+      // Auto-scroll to today on mobile
+      setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+    }
   });
 })();
 
