@@ -170,12 +170,31 @@
       .me-time { color: #888; font-size: 0.72rem; flex: 1; text-align: right; }
     }
 
-    /* === Today Highlight === */
+    /* === Today Highlight (calendar cell) === */
     .cal-cell.today { outline: 3px solid #c0392b; outline-offset: -3px; z-index: 1; position: relative; }
     .cal-cell.today .date-num { background: #c0392b; color: white; display: inline-block; padding: 0 5px; border-radius: 3px; }
     .mobile-day.today { border: 2.5px solid #c0392b; }
     .mobile-day.today .mobile-date-hdr { position: relative; }
     .mobile-day.today .mobile-date-hdr::after { content: 'TODAY'; font-size: 0.6rem; font-weight: bold; color: #c0392b; margin-left: auto; letter-spacing: 0.05em; }
+
+    /* === Today/Tomorrow Quick Section === */
+    .today-section { background: white; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); margin-bottom: 14px; overflow: hidden; }
+    .today-section .ts-card { padding: 14px 16px; }
+    .today-section .ts-card + .ts-card { border-top: 1px solid #eee; }
+    .ts-label { font-size: 0.68rem; font-weight: bold; letter-spacing: 0.05em; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .ts-label-today { color: #c0392b; }
+    .ts-label-tomorrow { color: #2471a3; }
+    .ts-label .ts-date { font-size: 0.82rem; font-weight: 600; }
+    .ts-label .ts-hol { font-size: 0.68rem; font-weight: normal; color: #c0392b; }
+    .ts-row { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; padding: 3px 0; }
+    .ts-row-lbl { color: #888; font-size: 0.72rem; min-width: 28px; flex-shrink: 0; }
+    .ts-row-name { font-weight: 700; }
+    .ts-ext { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; padding: 4px 8px; margin-top: 4px; background: #f0f8ff; border-left: 3px solid #5dade2; border-radius: 4px; }
+    .ts-ext-fac { color: #555; font-size: 0.75rem; }
+    .ts-ext-name { font-weight: 600; }
+    .ts-ext-time { color: #888; font-size: 0.72rem; margin-left: auto; }
+    .ts-none { display: none; }
+    @media print { .today-section { display: none !important; } }
 
     /* === Ward Print Button === */
     .ward-print-bar { text-align: right; margin-bottom: 10px; }
@@ -235,6 +254,9 @@
 
 <h1>2026年5月 当直表<small>大阪大学心臓血管外科</small></h1>
 <div class="print-title" id="print-title" style="display:none;"></div>
+
+<!-- Today / Tomorrow Quick View -->
+<div class="today-section ts-none" id="today-section"></div>
 
 <!-- Member Buttons -->
 <div class="member-section" id="member-section">
@@ -867,28 +889,58 @@ ${extHTML}
 // WARD PRINT (全体・病棟掲示用)
 // =====================
 // =====================
-// TODAY HIGHLIGHT
+// TODAY / TOMORROW SECTION + HIGHLIGHT
 // =====================
-(function highlightToday() {
+(function buildTodaySection() {
   const now = new Date();
-  const yyyy = now.getFullYear();
-  const mm = String(now.getMonth() + 1).padStart(2, '0');
-  const dd = String(now.getDate()).padStart(2, '0');
-  const todayStr = `${yyyy}-${mm}-${dd}`;
+  const toStr = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  const todayStr = toStr(now);
+  const tmrw = new Date(now); tmrw.setDate(tmrw.getDate()+1);
+  const tmrwStr = toStr(tmrw);
 
-  // Calendar view
+  // Calendar cell highlight
   document.querySelectorAll('.cal-cell[data-date]').forEach(cell => {
     if (cell.dataset.date === todayStr) cell.classList.add('today');
   });
-
-  // Mobile list view
+  // Mobile list highlight
   document.querySelectorAll('.mobile-day[data-date]').forEach(card => {
-    if (card.dataset.date === todayStr) {
-      card.classList.add('today');
-      // Auto-scroll to today on mobile
-      setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
-    }
+    if (card.dataset.date === todayStr) card.classList.add('today');
   });
+
+  // Build quick-view cards
+  const todayDay = DAYS.find(d => d.date === todayStr);
+  const tmrwDay  = DAYS.find(d => d.date === tmrwStr);
+  if (!todayDay && !tmrwDay) return; // not in this month
+
+  const container = document.getElementById('today-section');
+  container.classList.remove('ts-none');
+
+  function buildCard(day, label, labelClass) {
+    if (!day) return '';
+    const dow = ['日','月','火','水','木','金','土'][getDoW(day.date)];
+    const m = parseInt(day.date.slice(5,7));
+    const d = parseInt(day.date.slice(8));
+    const holTag = day.hol ? `<span class="ts-hol">${day.holName}</span>` : '';
+    const fColor = MEMBERS[day.f]?.color || '#333';
+    const sColor = MEMBERS[day.s]?.color || '#333';
+
+    let extHTML = '';
+    day.ext.forEach(e => {
+      const c = MEMBERS[e.person]?.color || '#333';
+      extHTML += `<div class="ts-ext"><span class="ts-ext-fac">${e.fac}</span><span class="ts-ext-name" style="color:${c}">${e.person}</span><span class="ts-ext-time">${e.time}</span></div>`;
+    });
+
+    return `<div class="ts-card">
+      <div class="ts-label ${labelClass}">${label} <span class="ts-date">${m}/${d}（${dow}）</span>${holTag}</div>
+      <div class="ts-row"><span class="ts-row-lbl">1st</span><span class="ts-row-name" style="color:${fColor}">${day.f}</span></div>
+      <div class="ts-row"><span class="ts-row-lbl">2nd</span><span class="ts-row-name" style="color:${sColor}">${day.s}</span></div>
+      ${extHTML}
+    </div>`;
+  }
+
+  container.innerHTML =
+    buildCard(todayDay, 'TODAY', 'ts-label-today') +
+    buildCard(tmrwDay,  'TOMORROW', 'ts-label-tomorrow');
 })();
 
 function printWard() {
