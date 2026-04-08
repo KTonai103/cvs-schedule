@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心臓血管外科 電話帳</title>
+<style>
+  :root {
+    --primary: #1a73e8;
+    --primary-light: #e8f0fe;
+    --bg: #f8f9fa;
+    --card-bg: #fff;
+    --text: #202124;
+    --text-secondary: #5f6368;
+    --border: #dadce0;
+    --shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.08);
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+  }
+
+  /* Header */
+  .header {
+    background: var(--primary);
+    color: #fff;
+    padding: 16px 20px 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+  }
+  .header h1 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: .5px;
+  }
+  .header .subtitle {
+    font-size: 11px;
+    opacity: .8;
+    margin-bottom: 10px;
+  }
+
+  /* Search */
+  .search-wrap {
+    position: relative;
+  }
+  .search-wrap svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    fill: var(--text-secondary);
+  }
+  .search-input {
+    width: 100%;
+    padding: 10px 40px 10px 40px;
+    border: none;
+    border-radius: 24px;
+    font-size: 15px;
+    background: #fff;
+    color: var(--text);
+    outline: none;
+    box-shadow: var(--shadow);
+  }
+  .search-input::placeholder { color: #aaa; }
+  .clear-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 18px;
+  }
+  .clear-btn.visible { display: flex; }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 90;
+  }
+  .tab {
+    flex: 1;
+    padding: 12px 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all .2s;
+    user-select: none;
+  }
+  .tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+  }
+
+  /* Content */
+  .content { padding: 8px 12px 80px; }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary);
+    padding: 12px 8px 6px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+
+  /* Card */
+  .card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 8px;
+    overflow: hidden;
+    transition: box-shadow .15s;
+  }
+  .card:active { box-shadow: 0 1px 6px rgba(0,0,0,.18); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    gap: 12px;
+  }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .avatar.staff { background: #fce8e6; color: #d93025; }
+  .avatar.shared { background: #e6f4ea; color: #1e8e3e; }
+  .card-name {
+    flex: 1;
+    min-width: 0;
+  }
+  .card-name .name {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .card-name .reading {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 1px;
+  }
+  .card-name .year {
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+  .expand-icon {
+    width: 20px;
+    height: 20px;
+    fill: var(--text-secondary);
+    transition: transform .2s;
+    flex-shrink: 0;
+  }
+  .card.open .expand-icon { transform: rotate(180deg); }
+
+  .card-body {
+    display: none;
+    padding: 0 16px 14px;
+    border-top: 1px solid var(--border);
+  }
+  .card.open .card-body { display: block; }
+
+  .info-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    width: 90px;
+    flex-shrink: 0;
+  }
+  .info-value {
+    font-size: 15px;
+    font-weight: 500;
+    flex: 1;
+  }
+  .info-value.muted { color: #bbb; font-weight: 400; }
+  .call-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+  .call-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--primary);
+  }
+  .call-btn:active { background: #c8ddf8; }
+
+  /* No results */
+  .no-results {
+    text-align: center;
+    padding: 48px 16px;
+    color: var(--text-secondary);
+  }
+  .no-results svg {
+    width: 48px;
+    height: 48px;
+    fill: #dadce0;
+    margin-bottom: 12px;
+  }
+  .no-results p { font-size: 14px; }
+
+  /* Counter */
+  .result-count {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 8px;
+  }
+
+  /* Desktop */
+  @media (min-width: 640px) {
+    .content { max-width: 600px; margin: 0 auto; padding: 12px 16px 40px; }
+    .header { padding: 20px 0 16px; }
+    .header-inner { max-width: 600px; margin: 0 auto; padding: 0 16px; }
+    .header h1 { font-size: 20px; }
+    .tabs { max-width: 600px; margin: 0 auto; }
+    .card-header { padding: 14px 20px; }
+    .card-body { padding: 0 20px 16px; }
+  }
+
+  /* highlight */
+  mark {
+    background: #fbbc04;
+    color: var(--text);
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>心臓血管外科 電話帳</h1>
+    <div class="subtitle">R8.4.1付</div>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      <input type="text" class="search-input" id="searchInput" placeholder="名前・読みで検索..." autocomplete="off" autofocus>
+      <button class="clear-btn" id="clearBtn" aria-label="クリア">&times;</button>
+    </div>
+  </div>
+</div>
+
+<div class="tabs" id="tabs">
+  <div class="tab active" data-tab="all">全員</div>
+  <div class="tab" data-tab="doctor">医師</div>
+  <div class="tab" data-tab="staff">スタッフ</div>
+  <div class="tab" data-tab="shared">共用</div>
+</div>
+
+<div class="content" id="content"></div>
+
+<script>
+const DATA = {
+  doctors: [
+    {name:"倉谷 徹",reading:"くらたに とおる",year:"S61",phs:"7594",dial:"",personal:""},
+    {name:"上野 高義",reading:"うえの たかよし",year:"H03",phs:"7597",dial:"06-6816-4041",personal:"090-4767-1884"},
+    {name:"西中 知博",reading:"にしなか ともひろ",year:"H03",phs:"2222",dial:"",personal:"080-9977-4230"},
+    {name:"宮川 繁",reading:"みやがわ しげる",year:"H06",phs:"2220",dial:"06-6816-3034",personal:"090-6736-0320"},
+    {name:"島村 和男",reading:"しまむら かずお",year:"H11",phs:"7590",dial:"06-6816-3228",personal:"090-8389-1838"},
+    {name:"斎藤 俊輔",reading:"さいとう しゅんすけ",year:"H12",phs:"7604",dial:"06-6816-3130",personal:"080-9508-4430"},
+    {name:"吉岡 大輔",reading:"よしおか だいすけ",year:"H14",phs:"2216",dial:"06-6816-3992",personal:"090-8984-1767"},
+    {name:"河村 拓史",reading:"かわむら たくし",year:"H17",phs:"2218",dial:"06-6816-3031",personal:"090-5121-5152"},
+    {name:"前田 孝一",reading:"まえだ こういち",year:"H17",phs:"2794",dial:"06-6816-4305",personal:"090-5120-6424"},
+    {name:"渡辺 芳樹",reading:"わたなべ よしき",year:"H18",phs:"2201",dial:"06-6816-3451",personal:"090-9929-1438"},
+    {name:"河村 愛",reading:"かわむら あい",year:"H19",phs:"2196",dial:"06-6816-8245",personal:"090-4273-5848"},
+    {name:"松浦 良平",reading:"まつうら りょうへい",year:"H19",phs:"7593",dial:"",personal:"090-8238-4336"},
+    {name:"木戸 高志",reading:"きど たかし",year:"H19",phs:"7598",dial:"06-6816-4005",personal:"080-9971-8602"},
+    {name:"矢嶋 真心",reading:"やじま まこと",year:"H19",phs:"2212",dial:"06-6816-3601",personal:"090-3748-3134"},
+    {name:"白川 岳",reading:"しらかわ がく",year:"H20",phs:"2792",dial:"06-6816-3078",personal:"080-3925-3762"},
+    {name:"桝田 浩禎",reading:"ますだ ひろよし",year:"H20",phs:"2215",dial:"",personal:""},
+    {name:"三隅 祐輔",reading:"みすみ ゆうすけ",year:"H21",phs:"2203",dial:"06-6816-3477",personal:"090-7459-0336"},
+    {name:"三宅 啓介",reading:"みやけ けいすけ",year:"H21",phs:"2221",dial:"06-6816-3035",personal:"090-9288-0114"},
+    {name:"小森 元貴",reading:"こもり もとき",year:"H22",phs:"2204",dial:"06-6816-3492",personal:"090-6988-1493"},
+    {name:"久呉 洋介",reading:"くご ようすけ",year:"H25",phs:"2198",dial:"06-6816-8247",personal:"080-1451-8441"},
+    {name:"横田 純己",reading:"よこた じゅんき",year:"H25",phs:"2184",dial:"06-6816-8685",personal:"090-5102-6214"},
+    {name:"永島 利章",reading:"ながしま としあき",year:"H26",phs:"2183",dial:"",personal:"090-1965-9820"},
+    {name:"伴田 一真",reading:"はんだ かずま",year:"H27",phs:"2192",dial:"06-6816-8310",personal:"080-1136-0160"},
+    {name:"山名 史男",reading:"やまな ふみお",year:"H27",phs:"2199",dial:"",personal:"080-6124-6991"},
+    {name:"榊原 聡",reading:"さかきばら さとし",year:"H27",phs:"2795",dial:"06-6816-4306",personal:"090-5338-8199"},
+    {name:"大谷 明伸",reading:"おおたに あきのぶ",year:"H28",phs:"2195",dial:"",personal:"080-3766-6806"},
+    {name:"柿澤 佑実",reading:"かきざわ ゆみ",year:"H28",phs:"2841",dial:"",personal:"090-7697-3951"},
+    {name:"竹原 貴之",reading:"たけはら たかゆき",year:"H28",phs:"7601",dial:"",personal:"090-7756-6878"},
+    {name:"藤内 康平",reading:"とうない こうへい",year:"H28",phs:"2185",dial:"06-6816-8683",personal:"090-6884-0489"},
+    {name:"大森 崇弘",reading:"おおもり たかひろ",year:"H29",phs:"2193",dial:"",personal:"090-6987-1315"},
+    {name:"山角 太良",reading:"やますみ たろう",year:"H29",phs:"7599",dial:"",personal:"090-6986-9462"},
+    {name:"柳野 佑輔",reading:"やなぎの ゆうすけ",year:"H29",phs:"2194",dial:"",personal:"080-1944-9397"},
+    {name:"田島 信弥",reading:"たじま しんや",year:"H30",phs:"7591",dial:"",personal:"090-6172-5526"},
+    {name:"土井田 務",reading:"どいた つとむ",year:"H30",phs:"2217",dial:"",personal:"090-4279-4976"},
+    {name:"濱田 悠輔",reading:"はまだ ゆうすけ",year:"H30",phs:"2189",dial:"06-6816-8378",personal:"080-3614-2503"},
+    {name:"川合 祥太",reading:"かわい しょうた",year:"H30",phs:"2208",dial:"06-6816-3537",personal:"080-5635-1730"},
+    {name:"石津 寛治",reading:"いしづ かんじ",year:"H31",phs:"2790",dial:"06-6816-3102",personal:"080-3290-5207"},
+    {name:"手繰 優太",reading:"てぐり ゆうた",year:"H31",phs:"2324",dial:"06-6816-8013",personal:"090-6694-0797"},
+    {name:"多田 浩気",reading:"ただ ひろき",year:"R2",phs:"2224",dial:"06-6816-3101",personal:"090-1966-3583"},
+    {name:"大山 聡太",reading:"おおやま そうた",year:"R6",phs:"2180",dial:"06-6816-4307",personal:"080-1458-2389"},
+    {name:"上村 宙輝",reading:"うえむら ひろき",year:"R6",phs:"7595",dial:"06-6816-4001",personal:"080-8344-9226"},
+    {name:"柿本 優介",reading:"かきもと ゆうすけ",year:"R6",phs:"2186",dial:"06-6816-4312",personal:"090-6378-6316"},
+    {name:"金森 皓士",reading:"かなもり こうし",year:"R6",phs:"2219",dial:"06-6816-4040",personal:"080-6360-8273"},
+    {name:"藤ノ木 亮",reading:"ふじのき りょう",year:"R6",phs:"2211",dial:"06-6816-8156",personal:"090-8641-5403"},
+    {name:"安田 直輝",reading:"やすだ なおき",year:"R6",phs:"2209",dial:"06-6816-4313",personal:"080-2512-5894"},
+    {name:"山下 由華",reading:"やました ゆか",year:"R6",phs:"2214",dial:"06-6816-8219",personal:"080-6377-1758"}
+  ],
+  staff: [
+    {name:"三木 健嗣",reading:"みき けんじ",phs:"2322",dial:""},
+    {name:"島本 知美",reading:"しまもと ともみ",phs:"2205",dial:"06-6816-3131"},
+    {name:"荒木 奈美子",reading:"あらき なみこ",phs:"8850",dial:"06-6816-8217"},
+    {name:"西村 絵里",reading:"にしむら えり",phs:"2181",dial:"06-6816-8613"},
+    {name:"三輪 美保",reading:"みわ みほ",phs:"7603",dial:"06-6816-4010"},
+    {name:"池谷 早苗",reading:"いけたに さなえ",phs:"2188",dial:"06-6816-8376"},
+    {name:"穂前 佳菜子",reading:"ほまえ かなこ",phs:"2321",dial:"06-6816-8617"},
+    {name:"片山 麻衣",reading:"かたやま まい",phs:"2191",dial:"06-6816-8218"}
+  ],
+  shared: [
+    {name:"手配師",reading:"てはいし",phs:"7600",dial:"06-6816-4007"},
+    {name:"検体採取当番",reading:"けんたい",phs:"2187",dial:"06-6816-8682"},
+    {name:"当直当番",reading:"とうちょく",phs:"8209",dial:"06-6816-4035"},
+    {name:"災害時優先回線",reading:"さいがい",phs:"2190",dial:""}
+  ]
+};
+
+const searchInput = document.getElementById('searchInput');
+const clearBtn = document.getElementById('clearBtn');
+const content = document.getElementById('content');
+const tabsEl = document.getElementById('tabs');
+let currentTab = 'all';
+
+// Tab switching
+tabsEl.addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  tabsEl.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  currentTab = tab.dataset.tab;
+  render();
+});
+
+// Search
+searchInput.addEventListener('input', () => {
+  clearBtn.classList.toggle('visible', searchInput.value.length > 0);
+  render();
+});
+clearBtn.addEventListener('click', () => {
+  searchInput.value = '';
+  clearBtn.classList.remove('visible');
+  searchInput.focus();
+  render();
+});
+
+// Expand card
+content.addEventListener('click', e => {
+  const header = e.target.closest('.card-header');
+  if (!header) return;
+  header.closest('.card').classList.toggle('open');
+});
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function highlight(text, query) {
+  if (!query) return escapeHtml(text);
+  const escaped = escapeHtml(text);
+  const q = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return escaped.replace(new RegExp(q, 'gi'), m => `<mark>${m}</mark>`);
+}
+
+function matches(item, query) {
+  if (!query) return true;
+  const q = query.toLowerCase();
+  return item.name.toLowerCase().includes(q) ||
+         item.reading.toLowerCase().includes(q) ||
+         (item.phs && item.phs.includes(q)) ||
+         (item.dial && item.dial.includes(q)) ||
+         (item.personal && item.personal.includes(q));
+}
+
+function phoneIcon() {
+  return '<svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.58 1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>';
+}
+
+function renderInfoRow(label, value, callable) {
+  const hasValue = value && value !== '—';
+  const display = hasValue ? value : '—';
+  const cls = hasValue ? '' : ' muted';
+  let callHtml = '';
+  if (callable && hasValue) {
+    callHtml = `<a href="tel:${value.replace(/-/g,'')}" class="call-btn" onclick="event.stopPropagation()" aria-label="発信">${phoneIcon()}</a>`;
+  }
+  return `<div class="info-row"><span class="info-label">${label}</span><span class="info-value${cls}">${display}</span>${callHtml}</div>`;
+}
+
+function renderCard(item, type, query) {
+  const avatarClass = type === 'staff' ? ' staff' : type === 'shared' ? ' shared' : '';
+  const initial = item.name.charAt(0);
+  const nameHtml = highlight(item.name, query);
+  const readingHtml = highlight(item.reading, query);
+  const yearHtml = item.year ? `<div class="year">${item.year}</div>` : '';
+
+  let bodyRows = '';
+  bodyRows += renderInfoRow('PHS内線', item.phs, true);
+  bodyRows += renderInfoRow('PHS外線', item.dial, true);
+  if (type === 'doctor') {
+    bodyRows += renderInfoRow('個人番号', item.personal, true);
+  }
+
+  return `<div class="card">
+    <div class="card-header">
+      <div class="avatar${avatarClass}">${initial}</div>
+      <div class="card-name">
+        <div class="name">${nameHtml}</div>
+        <div class="reading">${readingHtml}</div>
+        ${yearHtml}
+      </div>
+      <svg class="expand-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+    </div>
+    <div class="card-body">${bodyRows}</div>
+  </div>`;
+}
+
+function render() {
+  const query = searchInput.value.trim();
+  let html = '';
+  let total = 0;
+
+  const sections = [];
+  if (currentTab === 'all' || currentTab === 'doctor') {
+    const items = DATA.doctors.filter(d => matches(d, query));
+    if (items.length) sections.push({label: `医師（${items.length}）`, items, type: 'doctor'});
+    total += items.length;
+  }
+  if (currentTab === 'all' || currentTab === 'staff') {
+    const items = DATA.staff.filter(d => matches(d, query));
+    if (items.length) sections.push({label: `スタッフ（${items.length}）`, items, type: 'staff'});
+    total += items.length;
+  }
+  if (currentTab === 'all' || currentTab === 'shared') {
+    const items = DATA.shared.filter(d => matches(d, query));
+    if (items.length) sections.push({label: `共用番号（${items.length}）`, items, type: 'shared'});
+    total += items.length;
+  }
+
+  if (total === 0) {
+    html = `<div class="no-results">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      <p>「${escapeHtml(query)}」に一致する連絡先はありません</p>
+    </div>`;
+  } else {
+    if (query) {
+      html += `<div class="result-count">${total}件の結果</div>`;
+    }
+    for (const sec of sections) {
+      html += `<div class="section-label">${sec.label}</div>`;
+      for (const item of sec.items) {
+        html += renderCard(item, sec.type, query);
+      }
+    }
+  }
+
+  content.innerHTML = html;
+
+  // Auto-expand if only one result
+  if (total === 1) {
+    const card = content.querySelector('.card');
+    if (card) card.classList.add('open');
+  }
+}
+
+render();
+</script>
+</body>
+</html>
