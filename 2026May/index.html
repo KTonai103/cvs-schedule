@@ -324,35 +324,35 @@ const MEMBERS = {
 
 const DAYS = [
   { date:'2026-05-01', hol:false, holName:null, f:'藤内', s:'大山', ext:[] },
-  { date:'2026-05-02', hol:false, holName:null, f:'安田', s:'石津', ext:[
+  { date:'2026-05-02', hol:false, holName:null, f:'安田', s:'石津', t:'手繰', ext:[
     { fac:'協和会（日当直）', person:'多田',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
     { fac:'甲聖会（日直）',   person:'山下',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
     { fac:'加納生協',         person:'大山',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
     { fac:'辻本（日当直）',   person:'上村',   time:'13:00〜翌09:00', icsS:'130000', icsE_d:1, icsE_t:'090000' },
     { fac:'常岡病院',         person:'藤内',   time:'09:00〜13:00',   icsS:'090000', icsE_d:0, icsE_t:'130000' },
   ]},
-  { date:'2026-05-03', hol:true, holName:'憲法記念日', f:'山下', s:'多田', ext:[
+  { date:'2026-05-03', hol:true, holName:'憲法記念日', f:'山下', s:'多田', t:'上村', ext:[
     { fac:'辻本（日当直）',   person:'手繰',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
   ]},
-  { date:'2026-05-04', hol:true, holName:'みどりの日', f:'柿本', s:'石津', ext:[
+  { date:'2026-05-04', hol:true, holName:'みどりの日', f:'柿本', s:'石津', t:'多田', ext:[
     { fac:'協和会（日当直）', person:'濱田',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
   ]},
-  { date:'2026-05-05', hol:true, holName:'こどもの日', f:'金森', s:'濱田', ext:[
+  { date:'2026-05-05', hol:true, holName:'こどもの日', f:'金森', s:'濱田', t:'大山', ext:[
     { fac:'協和会（日当直）', person:'安田',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
   ]},
-  { date:'2026-05-06', hol:true, holName:'振替休日', f:'上村', s:'藤内', ext:[
+  { date:'2026-05-06', hol:true, holName:'振替休日', f:'上村', s:'藤内', t:'濱田', ext:[
     { fac:'協和会（日当直）', person:'石津',   time:'09:00〜翌07:30', icsS:'090000', icsE_d:1, icsE_t:'073000' },
   ]},
   { date:'2026-05-07', hol:false, holName:null, f:'濱田', s:'金森', ext:[] },
   { date:'2026-05-08', hol:false, holName:null, f:'石津', s:'上村', ext:[] },
-  { date:'2026-05-09', hol:false, holName:null, f:'大山', s:'濱田', ext:[
+  { date:'2026-05-09', hol:false, holName:null, f:'大山', s:'濱田', t:'安田', ext:[
     { fac:'協和会（日当直）', person:'手繰',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
     { fac:'甲聖会（日当直）', person:'山下',   time:'08:00〜翌08:00', icsS:'080000', icsE_d:1, icsE_t:'080000' },
     { fac:'東大阪生協',       person:'上村',   time:'09:00〜12:30',   icsS:'090000', icsE_d:0, icsE_t:'123000' },
     { fac:'加納生協',         person:'金森',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
     { fac:'ここしあ診療所',   person:'藤内',   time:'09:00〜17:00',   icsS:'090000', icsE_d:0, icsE_t:'170000' },
   ]},
-  { date:'2026-05-10', hol:false, holName:null, f:'山下', s:'石津', ext:[
+  { date:'2026-05-10', hol:false, holName:null, f:'山下', s:'石津', t:'金森', ext:[
     { fac:'甲聖会（日当直）', person:'多田',   time:'08:00〜翌07:30', icsS:'080000', icsE_d:1, icsE_t:'073000' },
   ]},
   { date:'2026-05-11', hol:false, holName:null, f:'多田', s:'安田', ext:[] },
@@ -360,25 +360,25 @@ const DAYS = [
   { date:'2026-05-13', hol:false, holName:null, f:'藤内', s:'柿本', ext:[] },
   { date:'2026-05-14', hol:false, holName:null, f:'金森', s:'濱田', ext:[] },
   { date:'2026-05-15', hol:false, holName:null, f:'手繰', s:'山下', ext:[] },
-  { date:'2026-05-16', hol:false, holName:null, f:'安田', s:'藤内', ext:[
+  { date:'2026-05-16', hol:false, holName:null, f:'安田', s:'藤内', t:'柿本', ext:[
     { fac:'協和会（日当直）', person:'多田',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
     { fac:'甲聖会（日直）',   person:'山下',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
     { fac:'加納生協',         person:'濱田',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
   ]},
-  { date:'2026-05-17', hol:false, holName:null, f:'濱田', s:'山下', ext:[] },
+  { date:'2026-05-17', hol:false, holName:null, f:'濱田', s:'山下', t:'藤内', ext:[] },
   { date:'2026-05-18', hol:false, holName:null, f:'安田', s:'石津', ext:[] },
   { date:'2026-05-19', hol:false, holName:null, f:'柿本', s:'多田', ext:[] },
   { date:'2026-05-20', hol:false, holName:null, f:'濱田', s:'上村', ext:[] },
   { date:'2026-05-21', hol:false, holName:null, f:'山下', s:'藤内', ext:[] },
   { date:'2026-05-22', hol:false, holName:null, f:'石津', s:'大山', ext:[] },
-  { date:'2026-05-23', hol:false, holName:null, f:'多田', s:'安田', ext:[
+  { date:'2026-05-23', hol:false, holName:null, f:'多田', s:'安田', t:'石津', ext:[
     { fac:'甲聖会（日直）',   person:'山下',   time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
     { fac:'東大阪生協',       person:'大山',   time:'09:00〜12:30',   icsS:'090000', icsE_d:0, icsE_t:'123000' },
     { fac:'加納生協',         person:'金森',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
     { fac:'辻本（日当直）',   person:'手繰',   time:'13:00〜翌09:00', icsS:'130000', icsE_d:1, icsE_t:'090000' },
     { fac:'ここしあ診療所',   person:'濱田',   time:'09:00〜17:00',   icsS:'090000', icsE_d:0, icsE_t:'170000' },
   ]},
-  { date:'2026-05-24', hol:false, holName:null, f:'手繰', s:'金森', ext:[
+  { date:'2026-05-24', hol:false, holName:null, f:'手繰', s:'金森', t:'柿本', ext:[
     { fac:'協和会（日当直）', person:'大山',   time:'09:00〜翌07:30', icsS:'090000', icsE_d:1, icsE_t:'073000' },
   ]},
   { date:'2026-05-25', hol:false, holName:null, f:'上村', s:'多田', ext:[] },
@@ -386,7 +386,7 @@ const DAYS = [
   { date:'2026-05-27', hol:false, holName:null, f:'大山', s:'濱田', ext:[] },
   { date:'2026-05-28', hol:false, holName:null, f:'手繰', s:'安田', ext:[] },
   { date:'2026-05-29', hol:false, holName:null, f:'藤内', s:'柿本', ext:[] },
-  { date:'2026-05-30', hol:false, holName:null, f:'大山', s:'多田', ext:[
+  { date:'2026-05-30', hol:false, holName:null, f:'大山', s:'多田', t:'山下', ext:[
     { fac:'協和会（日当直）', person:'濱田',   time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
     { fac:'甲聖会（日当直）', person:'金森',   time:'08:00〜翌08:00', icsS:'080000', icsE_d:1, icsE_t:'080000' },
     { fac:'加納生協',         person:'柿本',   time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
@@ -394,7 +394,7 @@ const DAYS = [
     { fac:'ここしあ診療所',   person:'藤内',   time:'09:00〜17:00',   icsS:'090000', icsE_d:0, icsE_t:'170000' },
     { fac:'牧野病院',         person:'上村',   time:'17:00〜翌09:00', icsS:'170000', icsE_d:1, icsE_t:'090000' },
   ]},
-  { date:'2026-05-31', hol:false, holName:null, f:'石津', s:'山下', ext:[
+  { date:'2026-05-31', hol:false, holName:null, f:'石津', s:'山下', t:'安田', ext:[
     { fac:'甲聖会（日当直）', person:'柿本',   time:'08:00〜翌07:30', icsS:'080000', icsE_d:1, icsE_t:'073000' },
     { fac:'辻本（日当直）',   person:'多田',   time:'09:00〜翌06:30', icsS:'090000', icsE_d:1, icsE_t:'063000' },
   ]},
@@ -462,6 +462,8 @@ DAYS.forEach(day => {
   cell.appendChild(makeShift('1st', day.f));
   // 2nd
   cell.appendChild(makeShift('2nd', day.s));
+  // 3rd (weekends/holidays only)
+  if (day.t) cell.appendChild(makeShift('3rd', day.t));
   // ext
   day.ext.forEach(e => {
     const div = document.createElement('div');
@@ -507,7 +509,9 @@ DAYS.forEach(day => {
   const shiftsDiv = document.createElement('div');
   shiftsDiv.className = 'mobile-shifts';
 
-  [['f','1st'],['s','2nd']].forEach(([key, lbl]) => {
+  const mobileSlots = [['f','1st'],['s','2nd']];
+  if (day.t) mobileSlots.push(['t','3rd']);
+  mobileSlots.forEach(([key, lbl]) => {
     const name = day[key];
     const color = MEMBERS[name]?.color || '#333';
     const div = document.createElement('div');
@@ -677,8 +681,9 @@ function updateExtDetail() {
 // ICS GENERATION
 // =====================
 const SLOTS = [
-  { key: 'f', label: '1st', summary: '阪大 1st当直',       desc: '阪大心臓血管外科 1st当直（当直）' },
-  { key: 's', label: '2nd', summary: '阪大 2nd待機',        desc: '阪大心臓血管外科 2nd待機' },
+  { key: 'f', label: '1st', summary: '阪大 1st当直',  desc: '阪大心臓血管外科 1st当直（当直）' },
+  { key: 's', label: '2nd', summary: '阪大 2nd待機',  desc: '阪大心臓血管外科 2nd待機' },
+  { key: 't', label: '3rd', summary: '阪大 3rd待機',  desc: '阪大心臓血管外科 3rd待機（土日祝）' },
 ];
 
 function downloadICS(memberName) {
@@ -772,7 +777,7 @@ function printForMember(memberName) {
   DAYS.forEach(day => {
     const dow = getDoW(day.date);
     const d   = parseInt(day.date.slice(8));
-    const isMyShift = day.f === memberName || day.s === memberName;
+    const isMyShift = day.f === memberName || day.s === memberName || day.t === memberName;
     const isMyExt   = day.ext.some(e => e.person === memberName);
 
     let cellClass = 'cal-cell';
@@ -785,7 +790,9 @@ function printForMember(memberName) {
     let inner = `<div class="date-num ${numClass}">${d}</div>`;
     if (day.hol) inner += `<div class="holiday-name">${day.holName}</div>`;
 
-    [['f','1st'],['s','2nd']].forEach(([key, lbl]) => {
+    const printSlots = [['f','1st'],['s','2nd']];
+    if (day.t) printSlots.push(['t','3rd']);
+    printSlots.forEach(([key, lbl]) => {
       const n    = day[key];
       const isMe = n === memberName;
       const c    = isMe ? color : '#bbb';
@@ -923,6 +930,7 @@ ${extHTML}
     const holTag = day.hol ? `<span class="ts-hol">${day.holName}</span>` : '';
     const fColor = MEMBERS[day.f]?.color || '#333';
     const sColor = MEMBERS[day.s]?.color || '#333';
+    const tColor = day.t ? (MEMBERS[day.t]?.color || '#333') : null;
 
     let extHTML = '';
     day.ext.forEach(e => {
@@ -934,6 +942,7 @@ ${extHTML}
       <div class="ts-label ${labelClass}">${label} <span class="ts-date">${m}/${d}（${dow}）</span>${holTag}</div>
       <div class="ts-row"><span class="ts-row-lbl">1st</span><span class="ts-row-name" style="color:${fColor}">${day.f}</span></div>
       <div class="ts-row"><span class="ts-row-lbl">2nd</span><span class="ts-row-name" style="color:${sColor}">${day.s}</span></div>
+      ${day.t ? `<div class="ts-row"><span class="ts-row-lbl">3rd</span><span class="ts-row-name" style="color:${tColor}">${day.t}</span></div>` : ''}
       ${extHTML}
     </div>`;
   }
@@ -973,12 +982,13 @@ function printWard() {
         <td class="date ${dateClass}">5/${d}（${DOW_STR[dow]}）${holSpan}</td>
         <td class="name" style="color:${wardColor(day.f)}">${day.f}</td>
         <td class="name" style="color:${wardColor(day.s)}">${day.s}</td>
+        ${day.t ? `<td class="name" style="color:${wardColor(day.t)}">${day.t}</td>` : '<td class="name" style="color:#ccc">—</td>'}
       </tr>`;
     }).join('');
   }
 
   const cols = [DAYS.slice(0,11), DAYS.slice(11,21), DAYS.slice(21,31)];
-  const theadHTML = '<thead><tr><th>日付</th><th>1st</th><th>2nd</th></tr></thead>';
+  const theadHTML = '<thead><tr><th>日付</th><th>1st</th><th>2nd</th><th>3rd</th></tr></thead>';
 
   const html = `<!DOCTYPE html>
 <html lang="ja"><head><meta charset="UTF-8">
