@@ -293,7 +293,7 @@
   <div class="tab active" data-tab="all">全員</div>
   <div class="tab" data-tab="doctor">医師</div>
   <div class="tab" data-tab="staff">スタッフ</div>
-  <div class="tab" data-tab="shared">共用</div>
+  <div class="tab" data-tab="shared">院内</div>
 </div>
 
 <div class="content" id="content"></div>
@@ -359,10 +359,85 @@ const DATA = {
     {name:"片山 麻衣",reading:"かたやま まい",phs:"2191",dial:"06-6816-8218"}
   ],
   shared: [
+    {name:"ICT感染症内科コンサルト",reading:"あいしーてぃー かんせんしょうないか",phs:"3355",dial:""},
+    {name:"ICU看護師長",reading:"あいしーゆー かんごしちょう",phs:"6013",dial:""},
+    {name:"IVR放射線治療科",reading:"あいぶいあーる ほうしゃせんちりょうか",phs:"7705",dial:""},
+    {name:"医局",reading:"いきょく",phs:"1733154",dial:""},
+    {name:"医局秘書",reading:"いきょくひしょ",phs:"1733156",dial:""},
+    {name:"移植コーディネーター 久保田さん",reading:"いしょくこーでぃねーたー くぼた",phs:"7855",dial:""},
+    {name:"ER救命センター詰め所",reading:"いーあーる きゅうめいせんたー つめしょ",phs:"1735717",dial:""},
+    {name:"ER救命ライター医師",reading:"いーあーる きゅうめい らいたーいし",phs:"8423",dial:""},
+    {name:"ER救命リーダーナース",reading:"いーあーる きゅうめい りーだーなーす",phs:"8420",dial:""},
+    {name:"エコー室",reading:"えこーしつ",phs:"1736610",dial:""},
+    {name:"MEオペ室日勤",reading:"えむいー おぺしつにっきん",phs:"1736753",dial:""},
+    {name:"ME 当直・ICU日勤",reading:"えむいー とうちょく あいしーゆーにっきん",phs:"7930",dial:""},
+    {name:"ME VADコール日勤",reading:"えむいー ばどこーる にっきん",phs:"3458",dial:""},
+    {name:"ME ペースメーカー",reading:"えむいー ぺーすめーかー",phs:"7933",dial:""},
+    {name:"ME ポンプ",reading:"えむいー ぽんぷ",phs:"1736774",dial:""},
+    {name:"ME 松本さん",reading:"えむいー まつもと",phs:"3467",dial:""},
+    {name:"OPE手術コントロール 青木さん",reading:"おぺ こんとろーる あおき",phs:"3050",dial:""},
+    {name:"OPE手術室クリーンホール",reading:"おぺ くりーんほーる",phs:"3060",dial:""},
+    {name:"OPE手術室コントロール",reading:"おぺ しゅじゅつしつ こんとろーる",phs:"1736700",dial:""},
+    {name:"OPE手術室看護師長",reading:"おぺ しゅじゅつしつ かんごしちょう",phs:"7813",dial:""},
+    {name:"OPE手術室透視",reading:"おぺ しゅじゅつしつ とうし",phs:"7818",dial:""},
+    {name:"OPE手術室リーダーナース",reading:"おぺ しゅじゅつしつ りーだーなーす",phs:"7815",dial:""},
+    {name:"OPE手術部薬剤部",reading:"おぺ しゅじゅつぶ やくざいぶ",phs:"1730720",dial:""},
+    {name:"核医学検査",reading:"かくいがくけんさ",phs:"1736853",dial:""},
+    {name:"外科外来（Hブロック）",reading:"げかがいらい えいちぶろっく",phs:"1735401",dial:""},
+    {name:"冠動脈CT室",reading:"かんどうみゃく しーてぃーしつ",phs:"1736875",dial:""},
+    {name:"緊急CT検査（頭）",reading:"きんきゅう しーてぃーけんさ あたま",phs:"7830",dial:""},
+    {name:"緊急CT検査（頭以外）",reading:"きんきゅう しーてぃーけんさ あたまいがい",phs:"2630",dial:""},
+    {name:"緊急MRI検査（頭）",reading:"きんきゅう えむあーるあい あたま",phs:"2627",dial:""},
+    {name:"緊急心臓CT 遠地さん",reading:"きんきゅう しんぞうしーてぃー とおち",phs:"7851",dial:""},
+    {name:"検体採取当番",reading:"けんたいさいしゅとうばん",phs:"2187",dial:"06-6816-8682"},
+    {name:"国際医療センター通訳",reading:"こくさいいりょうせんたー つうやく",phs:"2886",dial:""},
+    {name:"細菌検査室",reading:"さいきんけんさしつ",phs:"1736681",dial:""},
+    {name:"災害時優先回線",reading:"さいがいじゆうせんかいせん",phs:"2190",dial:""},
+    {name:"歯科外来",reading:"しかがいらい",phs:"1736540",dial:""},
+    {name:"歯科医師",reading:"しかいし",phs:"3810",dial:""},
+    {name:"事務当直",reading:"じむとうちょく",phs:"1735271",dial:""},
+    {name:"循環器カテーテル検査予定調整",reading:"じゅんかんき かてーてるけんさ よていちょうせい",phs:"3727",dial:""},
+    {name:"循環器ハートコール",reading:"じゅんかんき はーとこーる",phs:"7000",dial:""},
+    {name:"循環器副当直",reading:"じゅんかんき ふくとうちょく",phs:"8202",dial:""},
+    {name:"心エコー検査",reading:"しんえこーけんさ",phs:"3748",dial:""},
+    {name:"心臓外科当直",reading:"しんぞうげか とうちょく",phs:"8209",dial:"06-6816-4035"},
+    {name:"心臓リハビリ 神田さん",reading:"しんぞうりはびり かんだ",phs:"3212",dial:""},
+    {name:"心電図室",reading:"しんでんずしつ",phs:"1736606",dial:""},
+    {name:"第一ICUライター医師",reading:"だいいち あいしーゆー らいたーいし",phs:"3160",dial:""},
+    {name:"第一ICUリーダーナース",reading:"だいいち あいしーゆー りーだーなーす",phs:"6130",dial:""},
+    {name:"第二ICUライター医師",reading:"だいに あいしーゆー らいたーいし",phs:"3155",dial:""},
+    {name:"第二ICUリーダーナース",reading:"だいに あいしーゆー りーだーなーす",phs:"6104",dial:""},
+    {name:"地域連携室",reading:"ちいきれんけいしつ",phs:"1735090",dial:""},
     {name:"手配師",reading:"てはいし",phs:"7600",dial:"06-6816-4007"},
-    {name:"検体採取当番",reading:"けんたい",phs:"2187",dial:"06-6816-8682"},
-    {name:"当直当番",reading:"とうちょく",phs:"8209",dial:"06-6816-4035"},
-    {name:"災害時優先回線",reading:"さいがい",phs:"2190",dial:""}
+    {name:"DM糖尿病内科日中緊急",reading:"でぃーえむ とうにょうびょうないか にっちゅうきんきゅう",phs:"8204",dial:""},
+    {name:"透析受付",reading:"とうせきうけつけ",phs:"7038",dial:""},
+    {name:"透析室",reading:"とうせきしつ",phs:"1736050",dial:""},
+    {name:"動静脈血管エコー",reading:"どうじょうみゃく けっかんえこー",phs:"7623",dial:""},
+    {name:"読影（胸）",reading:"どくえい むね",phs:"1736806",dial:""},
+    {name:"読影（頭）",reading:"どくえい あたま",phs:"1736804",dial:""},
+    {name:"読影（腹）",reading:"どくえい はら",phs:"1736807",dial:""},
+    {name:"内科外来（消化器免疫内科）",reading:"ないかがいらい しょうかきめんえきないか",phs:"1735331",dial:""},
+    {name:"内科外来（循環器呼吸器血液腎臓内科）",reading:"ないかがいらい じゅんかんきこきゅうき",phs:"1735361",dial:""},
+    {name:"内科外来（総合老年神経内科）",reading:"ないかがいらい そうごうろうねんしんけいないか",phs:"1736040",dial:""},
+    {name:"西9病棟",reading:"にしきゅうびょうとう",phs:"1736360",dial:""},
+    {name:"西9病棟看護師長",reading:"にしきゅうびょうとう かんごしちょう",phs:"6029",dial:""},
+    {name:"西9病棟 薬剤師",reading:"にしきゅうびょうとう やくざいし",phs:"3416",dial:""},
+    {name:"西9病棟 リーダーナース",reading:"にしきゅうびょうとう りーだーなーす",phs:"6109",dial:""},
+    {name:"西6病棟",reading:"にしろくびょうとう",phs:"1736240",dial:""},
+    {name:"西6病棟 リーダーナース",reading:"にしろくびょうとう りーだーなーす",phs:"6106",dial:""},
+    {name:"日中ポータブルレントゲン",reading:"にっちゅう ぽーたぶるれんとげん",phs:"1736816",dial:""},
+    {name:"脳卒中緊急コール",reading:"のうそっちゅう きんきゅうこーる",phs:"7369",dial:""},
+    {name:"東9病棟",reading:"ひがしきゅうびょうとう",phs:"1736340",dial:""},
+    {name:"東9病棟 薬剤師",reading:"ひがしきゅうびょうとう やくざいし",phs:"3402",dial:""},
+    {name:"東3病棟",reading:"ひがしさんびょうとう",phs:"1736137",dial:""},
+    {name:"腹部エコー",reading:"ふくぶえこー",phs:"7801",dial:""},
+    {name:"放射線科医師当直",reading:"ほうしゃせんか いしとうちょく",phs:"8227",dial:""},
+    {name:"放射線科技師当直",reading:"ほうしゃせんか ぎしとうちょく",phs:"7838",dial:""},
+    {name:"麻酔科外来",reading:"ますいかがいらい",phs:"1736130",dial:""},
+    {name:"麻酔科ライター医師",reading:"ますいか らいたーいし",phs:"8223",dial:""},
+    {name:"薬剤部薬剤師当直",reading:"やくざいぶ やくざいしとうちょく",phs:"1736008",dial:""},
+    {name:"輸血部",reading:"ゆけつぶ",phs:"1735881",dial:""},
+    {name:"輸血部緊急",reading:"ゆけつぶきんきゅう",phs:"8230",dial:""}
   ]
 };
 
@@ -483,7 +558,7 @@ function render() {
   }
   if (currentTab === 'all' || currentTab === 'shared') {
     const items = DATA.shared.filter(d => matches(d, query));
-    if (items.length) sections.push({label: `共用番号（${items.length}）`, items, type: 'shared'});
+    if (items.length) sections.push({label: `院内連絡先（${items.length}）`, items, type: 'shared'});
     total += items.length;
   }
 
