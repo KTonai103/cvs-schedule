@@ -520,10 +520,14 @@ function renderCard(item, type, query) {
   const yearHtml = item.year ? `<div class="year">${item.year}</div>` : '';
 
   let bodyRows = '';
-  bodyRows += renderInfoRow('PHS内線', item.phs, true);
-  bodyRows += renderInfoRow('PHS外線', item.dial, true);
-  if (type === 'doctor') {
-    bodyRows += renderInfoRow('個人番号', item.personal, true);
+  if (type === 'shared') {
+    bodyRows += renderInfoRow('内線', item.phs, true);
+  } else {
+    bodyRows += renderInfoRow('PHS内線', item.phs, true);
+    bodyRows += renderInfoRow('PHS外線', item.dial, true);
+    if (type === 'doctor') {
+      bodyRows += renderInfoRow('個人番号', item.personal, true);
+    }
   }
 
   return `<div class="card">
