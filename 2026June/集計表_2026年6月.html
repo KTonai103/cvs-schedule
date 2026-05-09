@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>集計表 2026年6月 - 大阪大学心臓血管外科</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', 'Yu Gothic', sans-serif; background: #e8e6e2; padding: 16px; }
+    h1 { text-align: center; margin-bottom: 6px; font-size: 1.3rem; color: #1a1a2e; }
+    h1 small { display: block; font-size: 0.72rem; font-weight: normal; color: #666; margin-top: 3px; }
+    .notice { text-align: center; font-size: 0.72rem; color: #888; margin-bottom: 16px; }
+    .card { background: white; border-radius: 10px; padding: 16px; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+    .card h2 { font-size: 0.95rem; color: #1a1a2e; margin-bottom: 12px; border-bottom: 2px solid #1a1a2e; padding-bottom: 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th { background: #1a1a2e; color: white; padding: 7px 10px; text-align: center; font-size: 0.78rem; font-weight: 600; }
+    td { padding: 7px 10px; border-bottom: 1px solid #eee; text-align: center; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .name-cell { text-align: left; font-weight: 600; }
+    .cls-b { color: #1a3660; font-weight: 700; font-size: 0.72rem; }
+    .cls-c { color: #7b1818; font-weight: 700; font-size: 0.72rem; }
+    .icu { color: #856404; font-style: italic; }
+    .total-row td { background: #f0f4f0; font-weight: 700; border-top: 2px solid #aaa; }
+    .highlight { background: #fffbea !important; }
+    .ext-detail { color: #666; font-size: 0.78rem; }
+    .ratio-bar { margin-top: 10px; }
+    .bar-wrap { display: flex; height: 18px; border-radius: 6px; overflow: hidden; margin: 4px 0; }
+    .bar-b { background: #1a3660; }
+    .bar-c { background: #7b1818; }
+    .bar-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: #555; }
+    .soft-violation { background: #fff8e1; border-left: 4px solid #f9a825; padding: 8px 12px; border-radius: 4px; font-size: 0.8rem; color: #555; margin-top: 10px; }
+    .soft-violation strong { color: #f57f17; }
+    @media print {
+      @page { size: A4 portrait; margin: 12mm 10mm; }
+      body { background: white; padding: 0; }
+      .card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; margin-bottom: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>集計表 2026年6月<small>大阪大学心臓血管外科（ローカル確認用）</small></h1>
+<p class="notice">※ このファイルはローカル確認用です。GitHub Pages には公開しないでください。</p>
+
+<div class="card">
+  <h2>阪大当直 回数集計（1st / 2nd / 3rd）</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align:left">氏名</th>
+        <th>クラス</th>
+        <th>1st</th>
+        <th>2nd</th>
+        <th>3rd</th>
+        <th>合計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name-cell">藤内</td>
+        <td><span class="cls-b">B</span></td>
+        <td>3</td><td>4</td><td>0</td><td><strong>7</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">濱田</td>
+        <td><span class="cls-b">B</span></td>
+        <td>2</td><td>4</td><td>0</td><td><strong>6</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">多田</td>
+        <td><span class="cls-b">B</span></td>
+        <td>3</td><td>3</td><td>0</td><td><strong>6</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">手繰</td>
+        <td><span class="cls-b">B</span></td>
+        <td>2</td><td>4</td><td>0</td><td><strong>6</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">石津</td>
+        <td><span class="cls-b">B</span></td>
+        <td>2</td><td>3</td><td>0</td><td><strong>5</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">大山</td>
+        <td><span class="cls-c">C</span></td>
+        <td>3</td><td>1</td><td>2</td><td><strong>6</strong></td>
+      </tr>
+      <tr class="icu">
+        <td class="name-cell">安田</td>
+        <td><span class="cls-c">C</span></td>
+        <td>—</td><td>—</td><td>—</td><td>0（ICU出向）</td>
+      </tr>
+      <tr>
+        <td class="name-cell">藤ノ木</td>
+        <td><span class="cls-c">C</span></td>
+        <td>3</td><td>2</td><td>1</td><td><strong>6</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">山下</td>
+        <td><span class="cls-c">C</span></td>
+        <td>2</td><td>3</td><td>2</td><td><strong>7</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">金森</td>
+        <td><span class="cls-c">C</span></td>
+        <td>4</td><td>1</td><td>1</td><td><strong>6</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">柿本</td>
+        <td><span class="cls-c">C</span></td>
+        <td>3</td><td>2</td><td>1</td><td><strong>6</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">上村</td>
+        <td><span class="cls-c">C</span></td>
+        <td>3</td><td>3</td><td>1</td><td><strong>7</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="soft-violation" style="margin-top:12px;">
+    <strong>許容済みソフト違反：</strong>
+    濱田 6/20(2nd) → 6/21(1st) 連続。6/20の2nd代替Bが全員不可（多田・手繰=不可能日、石津=協和会外勤）のため許容。
+  </div>
+</div>
+
+<div class="card">
+  <h2>外勤単位集計</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align:left">氏名</th>
+        <th>クラス</th>
+        <th style="text-align:left">担当</th>
+        <th>単位</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td class="name-cell" colspan="4" style="background:#1a3660;color:white;font-size:0.78rem;padding:5px 10px;">Bクラス合計：17.5単位</td>
+      </tr>
+      <tr>
+        <td class="name-cell">藤内</td>
+        <td><span class="cls-b">B</span></td>
+        <td class="ext-detail" style="text-align:left">6/14 甲聖会（日当直）+2、6/28 協和会（日当直）+2　＋さとう6/6・6/21（対象外）</td>
+        <td><strong>4.0</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">濱田</td>
+        <td><span class="cls-b">B</span></td>
+        <td class="ext-detail" style="text-align:left">6/6 協和会（日当直）+2、6/13 甲聖会（日当直）+2</td>
+        <td><strong>4.0</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">多田</td>
+        <td><span class="cls-b">B</span></td>
+        <td class="ext-detail" style="text-align:left">6/13 協和会（日当直）+2、6/27 ここしあ（終日）+1.5</td>
+        <td><strong>3.5</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">手繰</td>
+        <td><span class="cls-b">B</span></td>
+        <td class="ext-detail" style="text-align:left">6/6 加納（半日）+1、6/13 加納（半日）+1、6/27 加納（半日）+1</td>
+        <td><strong>3.0</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">石津</td>
+        <td><span class="cls-b">B</span></td>
+        <td class="ext-detail" style="text-align:left">6/6 甲聖会（日直）+1、6/20 協和会（日当直）+2</td>
+        <td><strong>3.0</strong></td>
+      </tr>
+      <tr class="highlight">
+        <td class="name-cell" colspan="4" style="background:#7b1818;color:white;font-size:0.78rem;padding:5px 10px;">Cクラス合計：10.5単位</td>
+      </tr>
+      <tr>
+        <td class="name-cell">大山</td>
+        <td><span class="cls-c">C</span></td>
+        <td class="ext-detail" style="text-align:left">6/27 甲聖会（日直）+1</td>
+        <td><strong>1.0</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">藤ノ木</td>
+        <td><span class="cls-c">C</span></td>
+        <td class="ext-detail" style="text-align:left">6/13 ここしあ（終日）+1.5、6/27 辻本（日当直）+2</td>
+        <td><strong>3.5</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">山下</td>
+        <td><span class="cls-c">C</span></td>
+        <td class="ext-detail" style="text-align:left">6/20 甲聖会（日直）+1</td>
+        <td><strong>1.0</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">金森</td>
+        <td><span class="cls-c">C</span></td>
+        <td class="ext-detail" style="text-align:left">6/20 加納（半日）+1</td>
+        <td><strong>1.0</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">柿本</td>
+        <td><span class="cls-c">C</span></td>
+        <td class="ext-detail" style="text-align:left">6/7 辻本（日当直）+2</td>
+        <td><strong>2.0</strong></td>
+      </tr>
+      <tr>
+        <td class="name-cell">上村</td>
+        <td><span class="cls-c">C</span></td>
+        <td class="ext-detail" style="text-align:left">6/13 東大阪（日直半日）+1、6/27 東大阪（日直半日）+1</td>
+        <td><strong>2.0</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="ratio-bar">
+    <div class="bar-labels"><span>B：17.5単位</span><span>C：10.5単位</span></div>
+    <div class="bar-wrap">
+      <div class="bar-b" style="width:62.5%"></div>
+      <div class="bar-c" style="width:37.5%"></div>
+    </div>
+    <div style="font-size:0.75rem;color:#666;margin-top:4px;">B:C = 17.5:10.5 ≈ 5:3（目標3:2に対し概ね適正）</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>担当日一覧</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align:left">氏名</th>
+        <th style="text-align:left">1st担当日</th>
+        <th style="text-align:left">2nd担当日</th>
+        <th style="text-align:left">3rd担当日</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name-cell"><span class="cls-b">B</span> 藤内</td>
+        <td class="ext-detail" style="text-align:left">6/11(木)・6/18(木)・6/27(土)</td>
+        <td class="ext-detail" style="text-align:left">6/1(月)・6/13(土)・6/16(火)・6/25(木)</td>
+        <td class="ext-detail" style="text-align:left">—</td>
+      </tr>
+      <tr>
+        <td class="name-cell"><span class="cls-b">B</span> 濱田</td>
+        <td class="ext-detail" style="text-align:left">6/2(火)・6/21(日)</td>
+        <td class="ext-detail" style="text-align:left">6/5(金)・6/20(土)・6/26(金)・6/29(月)</td>
+        <td class="ext-detail" style="text-align:left">—</td>
+      </tr>
+      <tr>
+        <td class="name-cell"><span class="cls-b">B</span> 多田</td>
+        <td class="ext-detail" style="text-align:left">6/3(水)・6/6(土)・6/19(金)</td>
+        <td class="ext-detail" style="text-align:left">6/9(火)・6/15(月)・6/23(火)</td>
+        <td class="ext-detail" style="text-align:left">—</td>
+      </tr>
+      <tr>
+        <td class="name-cell"><span class="cls-b">B</span> 手繰</td>
+        <td class="ext-detail" style="text-align:left">6/12(金)・6/22(月)</td>
+        <td class="ext-detail" style="text-align:left">6/8(月)・6/10(水)・6/17(水)・6/30(火)</td>
+        <td class="ext-detail" style="text-align:left">—</td>
+      </tr>
+      <tr>
+        <td class="name-cell"><span class="cls-b">B</span> 石津</td>
+        <td class="ext-detail" style="text-align:left">6/4(木)・6/24(水)</td>
+        <td class="ext-detail" style="text-align:left">6/7(日)・6/14(日)・6/27(土)</td>
+        <td class="ext-detail" style="text-align:left">—</td>
+      </tr>
+      <tr>
+        <td class="name-cell"><span class="cls-c">C</span> 大山</td>
+        <td class="ext-detail" style="text-align:left">6/8(月)・6/20(土)・6/23(火)</td>
+        <td class="ext-detail" style="text-align:left">6/12(金)</td>
+        <td class="ext-detail" style="text-align:left">6/7(日)・6/13(土)</td>
+      </tr>
+      <tr class="icu">
+        <td class="name-cell"><span class="cls-c">C</span> 安田</td>
+        <td colspan="3" style="text-align:left;color:#856404;">ICU出向（全業務除外）</td>
+      </tr>
+      <tr>
+        <td class="name-cell"><span class="cls-c">C</span> 藤ノ木</td>
+        <td class="ext-detail" style="text-align:left">6/10(水)・6/15(月)・6/29(月)</td>
+        <td class="ext-detail" style="text-align:left">6/4(木)・6/19(金)</td>
+        <td class="ext-detail" style="text-align:left">6/20(土)</td>
+      </tr>
+      <tr>
+        <td class="name-cell"><span class="cls-c">C</span> 山下</td>
+        <td class="ext-detail" style="text-align:left">6/5(金)・6/25(木)</td>
+        <td class="ext-detail" style="text-align:left">6/3(水)・6/6(土)・6/18(木)</td>
+        <td class="ext-detail" style="text-align:left">6/14(日)・6/21(日)</td>
+      </tr>
+      <tr>
+        <td class="name-cell"><span class="cls-c">C</span> 金森</td>
+        <td class="ext-detail" style="text-align:left">6/7(日)・6/13(土)・6/17(水)・6/28(日)</td>
+        <td class="ext-detail" style="text-align:left">6/22(月)</td>
+        <td class="ext-detail" style="text-align:left">6/27(土)</td>
+      </tr>
+      <tr>
+        <td class="name-cell"><span class="cls-c">C</span> 柿本</td>
+        <td class="ext-detail" style="text-align:left">6/9(火)・6/14(日)・6/26(金)</td>
+        <td class="ext-detail" style="text-align:left">6/21(日)・6/28(日)</td>
+        <td class="ext-detail" style="text-align:left">6/6(土)</td>
+      </tr>
+      <tr>
+        <td class="name-cell"><span class="cls-c">C</span> 上村</td>
+        <td class="ext-detail" style="text-align:left">6/1(月)・6/16(火)・6/30(火)</td>
+        <td class="ext-detail" style="text-align:left">6/2(火)・6/11(木)・6/24(水)</td>
+        <td class="ext-detail" style="text-align:left">6/28(日)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>備考・注意事項</h2>
+  <ul style="font-size:0.83rem;color:#444;padding-left:1.2em;line-height:1.9;">
+    <li><strong>さとう病院（藤内）6/6・6/21</strong>：単位平衡化対象外。最終カレンダーには表示しない。</li>
+    <li><strong>安田</strong>：6月はICU出向のため全業務除外。</li>
+    <li><strong>甲聖会 6/13（濱田）</strong>：日当直（8:00〜翌8:00宿泊）のため、6/14は阪大2nd・外勤ともにブロック済。</li>
+    <li><strong>手繰</strong>：月の総単位がBクラス平均より少ない（3.0）ことを本人希望により許容。</li>
+    <li><strong>辻本病院 6/6 キャンセル</strong>：阪大同窓会イベント（6/6）にCクラス全員出席必要のため、Cクラス外勤不可→B不足でキャンセル。佐藤様（総務課）に連絡要。</li>
+    <li><strong>大山 外勤単位</strong>：辻本6/6キャンセルにより1.0単位（6/27甲聖会のみ）に減少。</li>
+    <li><strong>藤内 土曜1st負担軽減</strong>：6/13は石津と6/11スワップ、6/20はクラス入替（1st大山/2nd濱田/3rd藤ノ木）で対応。ソフト違反：濱田 6/20(2nd)→6/21(1st)連続（代替B不在のため許容）。</li>
+    <li><strong>6/14(3rd) 藤ノ木→山下 に変更</strong>：藤ノ木が 6/13外勤→6/14(3rd)→6/15(1st) の3日連続となるため解消。山下は6/14前後に当直なし。藤ノ木 total 7→6、山下 total 6→7。</li>
+    <li><strong>石津 6/6</strong>：当初完全オフ予定→6/13完全フリーと引き換えに甲聖会日直担当へ変更（承認済み）。6/13が完全フリーで本人希望（土曜どこか1日フリー）を満たすため許容。</li>
+    <li><strong>石津 週末負荷軽減</strong>：6/13 1st=金森(C)/2nd=藤内(B)に変更。石津の6/13がフリー化（total 6→5回）。副作用: 藤内 6/13(2nd)→6/14(甲聖会外勤) ソフト違反（許容）。石津 6/13(1st)→6/14(2nd)連続は継続許容。</li>
+    <li><strong>多田 6/12(1st)→6/13(協和会日当直) 連続軽減</strong>：6/3 1stと手繰の1stをスワップし、6/12 1st=手繰へ振替。連続が「1st翌日加納半日」に軽量化（手繰承諾前提）。</li>
+    <li><strong>山下 6/27不可能日違反修正 + 柿本 6/26(1st)→6/27(2nd) 連続解消</strong>：3点修正：6/18 2nd 柿本→山下、6/27 2nd 山下→石津、6/28 2nd 石津→柿本。全員の1st/2nd/3rd回数は不変。</li>
+  </ul>
+</div>
+
+</body>
+</html>
