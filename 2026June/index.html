@@ -42,6 +42,8 @@
     .date-num.sat { color: #2471a3; }
     .date-num.hol { color: #c0392b; }
     .holiday-name { font-size: 0.6rem; color: #c0392b; margin-bottom: 3px; }
+    .event-name { font-size: 0.6rem; color: #8e44ad; font-weight: bold; margin-bottom: 1px; }
+    .event-detail { font-size: 0.52rem; color: #8e44ad; margin-bottom: 3px; }
     .shift { font-size: 0.72rem; padding: 2px 5px; border-radius: 4px; margin-bottom: 2px; display: flex; align-items: baseline; gap: 3px; }
     .shift-lbl { font-size: 0.63rem; color: #888; min-width: 24px; flex-shrink: 0; }
     .shift-name { font-weight: 600; }
@@ -76,6 +78,8 @@
       .mobile-date-hdr.sat-hdr { background: #f0f0ff; color: #2471a3; }
       .mobile-date-hdr.hol-hdr { background: #fff0f0; color: #c0392b; }
       .mobile-hol-name { font-size: 0.72rem; font-weight: normal; color: #c0392b; }
+      .mobile-event-name { font-size: 0.72rem; font-weight: bold; color: #8e44ad; }
+      .mobile-event-detail { font-size: 0.65rem; color: #8e44ad; }
       .mobile-shifts { padding: 8px 12px; display: flex; flex-direction: column; gap: 5px; }
       .mobile-shift { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; border-radius: 4px; padding: 2px 4px; transition: opacity 0.15s; }
       .mobile-shift.dim { opacity: 0.15; }
@@ -101,6 +105,8 @@
     .ts-label-tomorrow { color: #2471a3; }
     .ts-label .ts-date { font-size: 0.82rem; font-weight: 600; }
     .ts-label .ts-hol { font-size: 0.68rem; font-weight: normal; color: #c0392b; }
+    .ts-event-row { font-size: 0.82rem; color: #8e44ad; font-weight: 600; padding: 3px 0 1px; }
+    .ts-event-ppl { font-size: 0.72rem; color: #8e44ad; padding-bottom: 3px; }
     .ts-row { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; padding: 3px 0; }
     .ts-row-lbl { color: #888; font-size: 0.72rem; min-width: 28px; flex-shrink: 0; }
     .ts-row-name { font-weight: 700; }
@@ -235,7 +241,7 @@ const DAYS = [
   { date:'2026-06-17', hol:false, holName:null, f:'金森', s:'手繰', ext:[] },
   { date:'2026-06-18', hol:false, holName:null, f:'藤内', s:'山下', ext:[] },
   { date:'2026-06-19', hol:false, holName:null, f:'手繰', s:'藤ノ木', ext:[] },
-  { date:'2026-06-20', hol:false, holName:null, f:'大山', s:'濱田', t:'藤ノ木', ext:[
+  { date:'2026-06-20', hol:false, holName:null, event:'ローテーター懇親会', eventPpl:'藤内・濱田・山下・金森・柿本・上村', f:'大山', s:'濱田', t:'藤ノ木', ext:[
     { fac:'協和会（日当直）', person:'石津', time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
     { fac:'甲聖会（日直）',   person:'山下', time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
     { fac:'加納生協',         person:'金森', time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
@@ -285,6 +291,7 @@ DAYS.forEach(day => {
   let numClass = (dow===0||day.hol) ? 'hol' : dow===6 ? 'sat' : '';
   cell.insertAdjacentHTML('beforeend', `<div class="date-num ${numClass}">${d}</div>`);
   if (day.hol) cell.insertAdjacentHTML('beforeend', `<div class="holiday-name">${day.holName}</div>`);
+  if (day.event) cell.insertAdjacentHTML('beforeend', `<div class="event-name">${day.event}</div><div class="event-detail">${day.eventPpl}</div>`);
   cell.appendChild(makeShift('1st', day.f));
   cell.appendChild(makeShift('2nd', day.s));
   if (day.t) cell.appendChild(makeShift('3rd', day.t));
@@ -309,6 +316,10 @@ DAYS.forEach(day => {
   hdr.innerHTML = `<span>${fmtDate(day.date)}</span>${day.hol?`<span class="mobile-hol-name">${day.holName}</span>`:''}`;
   dayDiv.appendChild(hdr);
   const shiftsDiv = document.createElement('div'); shiftsDiv.className='mobile-shifts';
+  if (day.event) {
+    const evDiv=document.createElement('div'); evDiv.className='mobile-event-name'; evDiv.textContent=day.event; shiftsDiv.appendChild(evDiv);
+    const pplDiv=document.createElement('div'); pplDiv.className='mobile-event-detail'; pplDiv.textContent=day.eventPpl; shiftsDiv.appendChild(pplDiv);
+  }
   const slots = [['f','1st'],['s','2nd']]; if (day.t) slots.push(['t','3rd']);
   slots.forEach(([key,lbl]) => {
     const name=day[key], color=MEMBERS[name]?.color||'#333';
@@ -421,6 +432,7 @@ function printForMember(memberName) {
     const numClass=(dow===0||day.hol)?'hol':dow===6?'sat':'';
     let inner=`<div class="date-num ${numClass}">${d}</div>`;
     if (day.hol) inner+=`<div class="holiday-name">${day.holName}</div>`;
+    if (day.event) inner+=`<div class="event-name">${day.event}</div><div class="event-detail">${day.eventPpl}</div>`;
     const ps=[['f','1st'],['s','2nd']]; if (day.t) ps.push(['t','3rd']);
     ps.forEach(([key,lbl])=>{ const n=day[key],isMe=n===memberName,c=isMe?color:'#bbb',op=isMe?'1':'0.2'; inner+=`<div class="shift" style="opacity:${op}"><span class="shift-lbl">${lbl}</span><span class="shift-name" style="color:${c}">${n}</span></div>`; });
     day.ext.forEach(e=>{ const isMe=e.person===memberName,op=isMe?'1':'0.2',ec=isMe?color:'#bbb',fs=e.fac.length>9?e.fac.slice(0,9)+'…':e.fac; inner+=`<div class="ext-shift" style="opacity:${op}"><span class="ext-fac">${fs}</span><span class="ext-person" style="color:${ec}">${e.person}</span></div>`; });
@@ -488,7 +500,8 @@ function printWard() {
     const holTag=day.hol?`<span class="ts-hol">${day.holName}</span>`:'';
     const fC=MEMBERS[day.f]?.color||'#333',sC=MEMBERS[day.s]?.color||'#333',tC=day.t?(MEMBERS[day.t]?.color||'#333'):null;
     let extH=''; day.ext.forEach(e=>{ const c=MEMBERS[e.person]?.color||'#333'; extH+=`<div class="ts-ext"><span class="ts-ext-fac">${e.fac}</span><span class="ts-ext-name" style="color:${c}">${e.person}</span><span class="ts-ext-time">${e.time}</span></div>`; });
-    return `<div class="ts-card"><div class="ts-label ${labelClass}">${label} <span class="ts-date">${m}/${d}（${dow}）</span>${holTag}</div><div class="ts-row"><span class="ts-row-lbl">1st</span><span class="ts-row-name" style="color:${fC}">${day.f}</span></div><div class="ts-row"><span class="ts-row-lbl">2nd</span><span class="ts-row-name" style="color:${sC}">${day.s}</span></div>${day.t?`<div class="ts-row"><span class="ts-row-lbl">3rd</span><span class="ts-row-name" style="color:${tC}">${day.t}</span></div>`:''}${extH}</div>`;
+    const eventH=day.event?`<div class="ts-event-row">${day.event}</div><div class="ts-event-ppl">${day.eventPpl}</div>`:'';
+    return `<div class="ts-card"><div class="ts-label ${labelClass}">${label} <span class="ts-date">${m}/${d}（${dow}）</span>${holTag}</div><div class="ts-row"><span class="ts-row-lbl">1st</span><span class="ts-row-name" style="color:${fC}">${day.f}</span></div><div class="ts-row"><span class="ts-row-lbl">2nd</span><span class="ts-row-name" style="color:${sC}">${day.s}</span></div>${day.t?`<div class="ts-row"><span class="ts-row-lbl">3rd</span><span class="ts-row-name" style="color:${tC}">${day.t}</span></div>`:''}${extH}${eventH}</div>`;
   }
   container.innerHTML=buildCard(todayDay,'TODAY','ts-label-today')+buildCard(tmrwDay,'TOMORROW','ts-label-tomorrow');
 })();
