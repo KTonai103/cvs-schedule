@@ -45,6 +45,9 @@
     .holiday-name { font-size: 0.6rem; color: #c0392b; margin-bottom: 3px; }
     .event-name { font-size: 0.6rem; color: #8e44ad; font-weight: bold; margin-bottom: 1px; }
     .event-detail { font-size: 0.52rem; color: #8e44ad; margin-bottom: 3px; }
+    .event-venue { font-size: 0.52rem; color: #8e44ad; margin-bottom: 3px; line-height: 1.45; }
+    .event-venue a { color: #7b2fb5; font-weight: 700; }
+    .today-section .event-venue { font-size: 0.72rem; margin: 1px 0 4px; }
     .shift { font-size: 0.72rem; padding: 2px 5px; border-radius: 4px; margin-bottom: 2px; display: flex; align-items: baseline; gap: 3px; }
     .shift-lbl { font-size: 0.63rem; color: #888; min-width: 24px; flex-shrink: 0; }
     .shift-name { font-weight: 600; }
@@ -86,6 +89,7 @@
       .mobile-hol-name { font-size: 0.72rem; font-weight: normal; color: #c0392b; }
       .mobile-event-name { font-size: 0.72rem; font-weight: bold; color: #8e44ad; }
       .mobile-event-detail { font-size: 0.65rem; color: #8e44ad; }
+      .event-venue { font-size: 0.72rem; line-height: 1.5; }
       .mobile-shifts { padding: 8px 12px; display: flex; flex-direction: column; gap: 5px; }
       .mobile-shift { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; border-radius: 4px; padding: 2px 4px; transition: opacity 0.15s; }
       .mobile-shift.dim { opacity: 0.15; }
@@ -254,7 +258,7 @@ const DAYS = [
   { date:'2026-06-17', hol:false, holName:null, f:'金森', s:'手繰', ext:[] },
   { date:'2026-06-18', hol:false, holName:null, f:'藤内', s:'山下', ext:[] },
   { date:'2026-06-19', hol:false, holName:null, f:'手繰', s:'藤ノ木', ext:[] },
-  { date:'2026-06-20', hol:false, holName:null, event:'ローテーター懇親会', eventPpl:'藤内・濱田・山下・金森・柿本・上村', f:'大山', s:'濱田', t:'藤ノ木', ext:[
+  { date:'2026-06-20', hol:false, holName:null, event:'ローテーター懇親会', eventPpl:'藤内・濱田・山下・金森・柿本・上村', eventVenue:'天串と海鮮の店 はれ天', eventUrl:'https://tabelog.com/osaka/A2701/A270108/27053331/', eventTel:'050-5869-5966', eventAddr:'大阪府大阪市福島区福島2丁目4-6', f:'大山', s:'濱田', t:'藤ノ木', ext:[
     { fac:'協和会（日当直）', person:'石津', time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
     { fac:'甲聖会（日直）',   person:'藤内', time:'08:00〜17:00',   icsS:'080000', icsE_d:0, icsE_t:'170000' },
     { fac:'加納生協',         person:'金森', time:'09:00〜12:00',   icsS:'090000', icsE_d:0, icsE_t:'120000' },
@@ -290,6 +294,18 @@ function fmtDate(dateStr) {
   const dow = ['日','月','火','水','木','金','土'][getDoW(dateStr)];
   return `${m}/${d}(${dow})`;
 }
+// イベントのお店情報。compact=true は店名リンクのみ（狭いカレンダーセル用）、
+// false は店名リンク＋電話（タップ発信）＋住所（モバイル/今日明日カード用）
+function eventVenueHTML(day, compact) {
+  if (!day.eventVenue && !day.eventUrl) return '';
+  const name = day.eventVenue || 'お店情報';
+  const link = day.eventUrl ? `<a href="${day.eventUrl}" target="_blank" rel="noopener">🍽 ${name}</a>` : `🍽 ${name}`;
+  if (compact) return `<div class="event-venue">${link}</div>`;
+  const p = [link];
+  if (day.eventTel) p.push(`<a href="tel:${day.eventTel.replace(/[^0-9]/g,'')}">📞 ${day.eventTel}</a>`);
+  if (day.eventAddr) p.push(`📍 ${day.eventAddr}`);
+  return `<div class="event-venue">${p.join('<br>')}</div>`;
+}
 
 const calGrid = document.getElementById('cal-grid');
 // June 1 = Monday (dow=1): 1 leading empty cell
@@ -304,7 +320,7 @@ DAYS.forEach(day => {
   let numClass = (dow===0||day.hol) ? 'hol' : dow===6 ? 'sat' : '';
   cell.insertAdjacentHTML('beforeend', `<div class="date-num ${numClass}">${d}</div>`);
   if (day.hol) cell.insertAdjacentHTML('beforeend', `<div class="holiday-name">${day.holName}</div>`);
-  if (day.event) cell.insertAdjacentHTML('beforeend', `<div class="event-name">${day.event}</div><div class="event-detail">${day.eventPpl}</div>`);
+  if (day.event) cell.insertAdjacentHTML('beforeend', `<div class="event-name">${day.event}</div><div class="event-detail">${day.eventPpl}</div>${eventVenueHTML(day, true)}`);
   cell.appendChild(makeShift('1st', day.f));
   cell.appendChild(makeShift('2nd', day.s));
   if (day.t) cell.appendChild(makeShift('3rd', day.t));
@@ -332,6 +348,7 @@ DAYS.forEach(day => {
   if (day.event) {
     const evDiv=document.createElement('div'); evDiv.className='mobile-event-name'; evDiv.textContent=day.event; shiftsDiv.appendChild(evDiv);
     const pplDiv=document.createElement('div'); pplDiv.className='mobile-event-detail'; pplDiv.textContent=day.eventPpl; shiftsDiv.appendChild(pplDiv);
+    if (day.eventVenue||day.eventUrl) shiftsDiv.insertAdjacentHTML('beforeend', eventVenueHTML(day, false));
   }
   const slots = [['f','1st'],['s','2nd']]; if (day.t) slots.push(['t','3rd']);
   slots.forEach(([key,lbl]) => {
@@ -462,7 +479,7 @@ function printForMember(memberName) {
     const numClass=(dow===0||day.hol)?'hol':dow===6?'sat':'';
     let inner=`<div class="date-num ${numClass}">${d}</div>`;
     if (day.hol) inner+=`<div class="holiday-name">${day.holName}</div>`;
-    if (day.event) inner+=`<div class="event-name">${day.event}</div><div class="event-detail">${day.eventPpl}</div>`;
+    if (day.event) inner+=`<div class="event-name">${day.event}</div><div class="event-detail">${day.eventPpl}${day.eventVenue?' ＠'+day.eventVenue:''}</div>`;
     const ps=[['f','1st'],['s','2nd']]; if (day.t) ps.push(['t','3rd']);
     ps.forEach(([key,lbl])=>{ const n=day[key],isMe=n===memberName,c=isMe?color:'#bbb',op=isMe?'1':'0.2'; inner+=`<div class="shift" style="opacity:${op}"><span class="shift-lbl">${lbl}</span><span class="shift-name" style="color:${c}">${n}</span></div>`; });
     day.ext.forEach(e=>{ const isMe=e.person===memberName,op=isMe?'1':'0.2',ec=isMe?color:'#bbb',fs=e.fac.length>9?e.fac.slice(0,9)+'…':e.fac; inner+=`<div class="ext-shift" style="opacity:${op}"><span class="ext-fac">${fs}</span><span class="ext-person" style="color:${ec}">${e.person}</span></div>`; });
@@ -530,7 +547,7 @@ function printWard() {
     const holTag=day.hol?`<span class="ts-hol">${day.holName}</span>`:'';
     const fC=MEMBERS[day.f]?.color||'#333',sC=MEMBERS[day.s]?.color||'#333',tC=day.t?(MEMBERS[day.t]?.color||'#333'):null;
     let extH=''; day.ext.forEach(e=>{ const c=MEMBERS[e.person]?.color||'#333'; extH+=`<div class="ts-ext"><span class="ts-ext-fac">${e.fac}</span><span class="ts-ext-name" style="color:${c}">${e.person}</span><span class="ts-ext-time">${e.time}</span></div>`; });
-    const eventH=day.event?`<div class="ts-event-row">${day.event}</div><div class="ts-event-ppl">${day.eventPpl}</div>`:'';
+    const eventH=day.event?`<div class="ts-event-row">${day.event}</div><div class="ts-event-ppl">${day.eventPpl}</div>${eventVenueHTML(day, false)}`:'';
     return `<div class="ts-card"><div class="ts-label ${labelClass}">${label} <span class="ts-date">${m}/${d}（${dow}）</span>${holTag}</div><div class="ts-row"><span class="ts-row-lbl">1st</span><span class="ts-row-name" style="color:${fC}">${day.f}</span></div><div class="ts-row"><span class="ts-row-lbl">2nd</span><span class="ts-row-name" style="color:${sC}">${day.s}</span></div>${day.t?`<div class="ts-row"><span class="ts-row-lbl">3rd</span><span class="ts-row-name" style="color:${tC}">${day.t}</span></div>`:''}${extH}${eventH}</div>`;
   }
   container.innerHTML=buildCard(todayDay,'TODAY','ts-label-today')+buildCard(tmrwDay,'TOMORROW','ts-label-tomorrow');
