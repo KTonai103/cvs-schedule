@@ -17,6 +17,7 @@
     .icu-label { font-size: 0.72rem; font-weight: bold; color: #888; min-width: 52px; }
     .icu-badge { font-size: 0.78rem; padding: 3px 10px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 12px; color: #856404; font-weight: 600; }
     .btn-group { display: flex; flex-wrap: wrap; gap: 7px; }
+    .member-select-bar { display: none; } /* スマホのみ表示（PCはバッジを使用） */
     .member-btn { display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px; border: 2px solid #ddd; border-radius: 20px; cursor: pointer; font-size: 0.85rem; background: white; transition: all 0.15s; user-select: none; }
     .member-btn:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
     .member-btn.active { color: white !important; border-color: transparent !important; }
@@ -73,17 +74,15 @@
       h1 { font-size: 1.15rem; }
       .calendar-wrapper { display: none; }
       #mobile-list { display: block; }
-      /* メンバー絞り込みを上部固定（スクロールしても押せる）。
-         バッジは小さめ＋複数横並びにして、下の予定表の表示枠を確保する。
-         高さは画面の46%で頭打ちにし、超えたら絞り込み内だけスクロール。 */
-      .member-section { padding: 9px 11px; position: sticky; top: 0; z-index: 20; border: 1px solid #e0ddd7; max-height: 46vh; overflow-y: auto; }
-      .class-row { gap: 6px; margin-bottom: 5px; }
-      .class-label { min-width: 32px; font-size: 0.64rem; padding-top: 6px; }
-      .btn-group { gap: 5px; }
-      .member-btn { font-size: 0.78rem; padding: 4px 9px; gap: 4px; }
-      .member-dot { width: 8px; height: 8px; }
-      .ics-btn { font-size: 0.58rem; padding: 3px 6px; }
-      .print-btn { display: none; } /* 個人印刷はPC用。スマホでは非表示にして横幅を詰める */
+      /* スマホは「自分の名前」プルダウンに集約。バッジ行は隠し、固定ヘッダーを最小化して
+         下の予定表の表示枠を最大化する */
+      .member-section { padding: 9px 12px; position: sticky; top: 0; z-index: 20; border: 1px solid #e0ddd7; }
+      .member-section .class-row { display: none; }
+      .member-select-bar { display: flex; align-items: center; gap: 8px; }
+      .msel-label { font-size: 0.74rem; font-weight: bold; color: #777; flex-shrink: 0; }
+      #member-select { flex: 1; min-width: 0; font-size: 16px; padding: 8px 10px; border: 1.5px solid #ccc; border-radius: 8px; background: white; font-family: inherit; color: #222; }
+      .msel-ics { flex-shrink: 0; font-size: 0.74rem; padding: 8px 11px; background: #eef6fb; border: 1px solid #b3d9ef; border-radius: 8px; color: #2471a3; font-family: inherit; cursor: pointer; }
+      .msel-ics:disabled { opacity: 0.4; cursor: default; }
       .vac-section { padding: 10px 12px; gap: 7px; }
       .vac-item { font-size: 0.86rem; padding: 4px 11px; }
       .mobile-day { background: white; border-radius: 9px; margin-bottom: 9px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
@@ -167,6 +166,13 @@
 <div class="today-section ts-none" id="today-section"></div>
 
 <div class="member-section" id="member-section">
+  <div class="member-select-bar" id="member-select-bar">
+    <label class="msel-label" for="member-select">自分の名前</label>
+    <select id="member-select" aria-label="自分の名前を選択して予定をハイライト">
+      <option value="">— 全員表示 —</option>
+    </select>
+    <button class="msel-ics" id="member-ics-btn" type="button" disabled>📅 ICS</button>
+  </div>
   <div class="class-row">
     <div class="class-label">Bクラス</div>
     <div class="btn-group" id="b-btns"></div>
@@ -394,10 +400,27 @@ Object.entries(MEMBERS).forEach(([name,info]) => {
   container.appendChild(wrapper);
 });
 
+// スマホ用「自分の名前」プルダウン（バッジと同じハイライト動作。選択中の人をICS出力可）
+const memberSelect=document.getElementById('member-select'), memberIcsBtn=document.getElementById('member-ics-btn');
+if (memberSelect) {
+  [['B','Bクラス'],['C','Cクラス']].forEach(([cls,label]) => {
+    const og=document.createElement('optgroup'); og.label=label;
+    Object.keys(MEMBERS).filter(n=>MEMBERS[n].cls===cls).forEach(n => {
+      const op=document.createElement('option'); op.value=n; op.textContent=n; og.appendChild(op);
+    });
+    memberSelect.appendChild(og);
+  });
+  memberSelect.addEventListener('change', () => { const n=memberSelect.value; activeMembers.clear(); if (n) activeMembers.add(n); applyHighlight(); });
+  memberIcsBtn.addEventListener('click', () => { const n=memberSelect.value; if (n) downloadICS(n); });
+}
+
 function toggleMember(name) { const a=activeMembers.has(name); activeMembers.clear(); if(!a) activeMembers.add(name); applyHighlight(); }
 
 function applyHighlight() {
   const hasActive=activeMembers.size>0;
+  const activeName=hasActive?Array.from(activeMembers)[0]:'';
+  if (memberSelect && memberSelect.value!==activeName) memberSelect.value=activeName;
+  if (memberIcsBtn) memberIcsBtn.disabled=!hasActive;
   document.querySelectorAll('.member-btn').forEach(btn => {
     const n=btn.dataset.name;
     if (activeMembers.has(n)) { btn.classList.add('active'); btn.style.backgroundColor=MEMBERS[n].color; btn.style.borderColor=MEMBERS[n].color; btn.style.color='white'; }
