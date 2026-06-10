@@ -73,13 +73,17 @@
       h1 { font-size: 1.15rem; }
       .calendar-wrapper { display: none; }
       #mobile-list { display: block; }
-      /* メンバー絞り込みを上部固定（スクロールしても押せる） */
-      .member-section { padding: 11px 12px; position: sticky; top: 0; z-index: 20; border: 1px solid #e0ddd7; }
-      .class-row { gap: 8px; margin-bottom: 7px; }
-      .class-label { min-width: 40px; font-size: 0.7rem; padding-top: 7px; }
-      .member-btn { font-size: 0.92rem; padding: 7px 13px; }
-      .member-dot { width: 11px; height: 11px; }
-      .ics-btn, .print-btn { font-size: 0.66rem; padding: 4px 7px; }
+      /* メンバー絞り込みを上部固定（スクロールしても押せる）。
+         バッジは小さめ＋複数横並びにして、下の予定表の表示枠を確保する。
+         高さは画面の46%で頭打ちにし、超えたら絞り込み内だけスクロール。 */
+      .member-section { padding: 9px 11px; position: sticky; top: 0; z-index: 20; border: 1px solid #e0ddd7; max-height: 46vh; overflow-y: auto; }
+      .class-row { gap: 6px; margin-bottom: 5px; }
+      .class-label { min-width: 32px; font-size: 0.64rem; padding-top: 6px; }
+      .btn-group { gap: 5px; }
+      .member-btn { font-size: 0.78rem; padding: 4px 9px; gap: 4px; }
+      .member-dot { width: 8px; height: 8px; }
+      .ics-btn { font-size: 0.58rem; padding: 3px 6px; }
+      .print-btn { display: none; } /* 個人印刷はPC用。スマホでは非表示にして横幅を詰める */
       .vac-section { padding: 10px 12px; gap: 7px; }
       .vac-item { font-size: 0.86rem; padding: 4px 11px; }
       .mobile-day { background: white; border-radius: 9px; margin-bottom: 9px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
