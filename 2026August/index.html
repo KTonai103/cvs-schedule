@@ -189,7 +189,7 @@
 
 <div class="vac-section">
   <span class="vac-hdr">🏖 夏休み</span>
-  <span class="vac-item"><b>大山</b> 8/10〜14</span>
+  <span class="vac-item"><b>大山</b> 8/9〜14</span>
   <span class="vac-item"><b>柿本</b> 8/17〜21</span>
   <span class="vac-item"><b>石津</b> 8/24〜28</span>
 </div>
@@ -237,7 +237,7 @@ const MEMBERS = {
 
 // 夏休み: 日(数値) -> 担当者名（カレンダー・モバイルに🏖表示）
 const VAC = {};
-[['大山',10,14],['柿本',17,21],['石津',24,28]].forEach(([p,a,b]) => { for (let d=a; d<=b; d++) VAC[d]=p; });
+[['大山',9,14],['柿本',17,21],['石津',24,28]].forEach(([p,a,b]) => { for (let d=a; d<=b; d++) VAC[d]=p; });
 
 const DAYS = [
   { date:'2026-08-01', hol:false, holName:null, f:'石津', s:'柿本', t:'手繰', ext:[
@@ -249,7 +249,7 @@ const DAYS = [
   { date:'2026-08-02', hol:false, holName:null, f:'山下', s:'手繰', t:'安田', ext:[
     { fac:'辻本（日当直）', person:'藤内', time:'09:00〜翌06:30', icsS:'090000', icsE_d:1, icsE_t:'063000' },
   ] },
-  { date:'2026-08-03', hol:false, holName:null, f:'安田', s:'石津', ext:[] },
+  { date:'2026-08-03', hol:false, holName:null, f:'柿本', s:'石津', ext:[] },
   { date:'2026-08-04', hol:false, holName:null, f:'山下', s:'多田', ext:[] },
   { date:'2026-08-05', hol:false, holName:null, f:'藤ノ木', s:'石津', ext:[] },
   { date:'2026-08-06', hol:false, holName:null, f:'上村', s:'藤内', ext:[] },
@@ -261,7 +261,7 @@ const DAYS = [
     { fac:'加納生協', person:'上村', time:'09:00〜12:00', icsS:'090000', icsE_d:0, icsE_t:'120000' },
     { fac:'ここしあ診療所', person:'濱田', time:'09:00〜17:00', icsS:'090000', icsE_d:0, icsE_t:'170000' },
   ] },
-  { date:'2026-08-09', hol:false, holName:null, f:'多田', s:'大山', t:'藤ノ木', ext:[
+  { date:'2026-08-09', hol:false, holName:null, f:'多田', s:'山下', t:'藤ノ木', ext:[
     { fac:'甲聖会（日当直）', person:'濱田', time:'08:00〜翌07:30', icsS:'080000', icsE_d:1, icsE_t:'073000' },
   ] },
   { date:'2026-08-10', hol:false, holName:null, f:'柿本', s:'石津', ext:[] },
@@ -270,10 +270,10 @@ const DAYS = [
   ] },
   { date:'2026-08-12', hol:false, holName:null, f:'藤ノ木', s:'多田', ext:[] },
   { date:'2026-08-13', hol:false, holName:null, f:'安田', s:'石津', ext:[] },
-  { date:'2026-08-14', hol:false, holName:null, f:'濱田', s:'藤内', ext:[] },
-  { date:'2026-08-15', hol:false, holName:null, f:'上村', s:'手繰', t:'大山', ext:[
+  { date:'2026-08-14', hol:false, holName:null, f:'濱田', s:'上村', ext:[] },
+  { date:'2026-08-15', hol:false, holName:null, f:'柿本', s:'手繰', t:'大山', ext:[
     { fac:'協和会（日当直）', person:'山下', time:'09:00〜翌09:00', icsS:'090000', icsE_d:1, icsE_t:'090000' },
-    { fac:'甲聖会（日直）', person:'柿本', time:'08:00〜17:00', icsS:'080000', icsE_d:0, icsE_t:'170000' },
+    { fac:'甲聖会（日直）', person:'藤ノ木', time:'08:00〜17:00', icsS:'080000', icsE_d:0, icsE_t:'170000' },
     { fac:'加納生協', person:'多田', time:'09:00〜12:00', icsS:'090000', icsE_d:0, icsE_t:'120000' },
   ] },
   { date:'2026-08-16', hol:false, holName:null, f:'石津', s:'藤ノ木', t:'濱田', ext:[] },
@@ -292,11 +292,11 @@ const DAYS = [
   { date:'2026-08-23', hol:false, holName:null, f:'多田', s:'藤ノ木', t:'柿本', ext:[
     { fac:'協和会（日当直）', person:'石津', time:'09:00〜翌07:30', icsS:'090000', icsE_d:1, icsE_t:'073000' },
   ] },
-  { date:'2026-08-24', hol:false, holName:null, f:'柿本', s:'藤内', ext:[] },
+  { date:'2026-08-24', hol:false, holName:null, f:'安田', s:'藤内', ext:[] },
   { date:'2026-08-25', hol:false, holName:null, f:'山下', s:'濱田', ext:[] },
   { date:'2026-08-26', hol:false, holName:null, f:'手繰', s:'上村', ext:[] },
   { date:'2026-08-27', hol:false, holName:null, f:'安田', s:'濱田', ext:[] },
-  { date:'2026-08-28', hol:false, holName:null, f:'藤内', s:'上村', ext:[] },
+  { date:'2026-08-28', hol:false, holName:null, f:'上村', s:'藤内', ext:[] },
   { date:'2026-08-29', hol:false, holName:null, f:'濱田', s:'柿本', t:'手繰', ext:[
     { fac:'牧野（日当直）', person:'大山', time:'07:00〜翌09:00', icsS:'070000', icsE_d:1, icsE_t:'090000' },
     { fac:'甲聖会（日当直）', person:'山下', time:'08:00〜翌08:00', icsS:'080000', icsE_d:1, icsE_t:'080000' },
