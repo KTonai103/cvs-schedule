@@ -280,7 +280,7 @@
 <div class="header">
   <div class="header-inner">
     <h1>心臓血管外科 電話帳</h1>
-    <div class="subtitle">R8.4.1付</div>
+    <div class="subtitle">R8.10.1付</div>
     <div class="search-wrap">
       <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
       <input type="text" class="search-input" id="searchInput" placeholder="名前・読みで検索..." autocomplete="off" autofocus>
@@ -325,7 +325,6 @@ const DATA = {
     {name:"永島 利章",reading:"ながしま としあき",year:"H26",phs:"2183",dial:"",personal:"090-1965-9820"},
     {name:"伴田 一真",reading:"はんだ かずま",year:"H27",phs:"2192",dial:"06-6816-8310",personal:"080-1136-0160"},
     {name:"山名 史男",reading:"やまな ふみお",year:"H27",phs:"2199",dial:"",personal:"080-6124-6991"},
-    {name:"榊原 聡",reading:"さかきばら さとし",year:"H27",phs:"2795",dial:"06-6816-4306",personal:"090-5338-8199"},
     {name:"大谷 明伸",reading:"おおたに あきのぶ",year:"H28",phs:"2195",dial:"",personal:"080-3766-6806"},
     {name:"柿澤 佑実",reading:"かきざわ ゆみ",year:"H28",phs:"2841",dial:"",personal:"090-7697-3951"},
     {name:"竹原 貴之",reading:"たけはら たかゆき",year:"H28",phs:"7601",dial:"",personal:"090-7756-6878"},
@@ -340,20 +339,23 @@ const DATA = {
     {name:"石津 寛治",reading:"いしづ かんぢ",year:"H31",phs:"2790",dial:"06-6816-3102",personal:"080-3290-5207"},
     {name:"手繰 優太",reading:"てぐり ゆうた",year:"H31",phs:"2324",dial:"06-6816-8013",personal:"090-6694-0797"},
     {name:"多田 浩気",reading:"ただ ひろき",year:"R2",phs:"2224",dial:"06-6816-3101",personal:"090-1966-3583"},
+    {name:"永井 翼",reading:"ながい つばさ",year:"",phs:"2795",dial:"06-6816-4306",personal:""},
+    {name:"琴谷 美咲",reading:"ことたに みさき",year:"",phs:"2207",dial:"",personal:""},
     {name:"大山 聡太",reading:"おおやま そうた",year:"R6",phs:"2180",dial:"06-6816-4307",personal:"080-1458-2389"},
     {name:"上村 宙輝",reading:"うえむら ひろき",year:"R6",phs:"7595",dial:"06-6816-4001",personal:"080-8344-9226"},
-    {name:"柿本 優介",reading:"かきもと ゆうすけ",year:"R6",phs:"2186",dial:"06-6816-4312",personal:"090-6378-6316"},
-    {name:"金森 皓士",reading:"かなもり こうし",year:"R6",phs:"2219",dial:"06-6816-4040",personal:"080-6360-8273"},
-    {name:"藤ノ木 亮",reading:"ふじのき りょう",year:"R6",phs:"2211",dial:"06-6816-8156",personal:"090-8641-5403"},
-    {name:"安田 直輝",reading:"やすだ なおき",year:"R6",phs:"2209",dial:"06-6816-4313",personal:"080-2512-5894"},
-    {name:"山下 由華",reading:"やました ゆか",year:"R6",phs:"2214",dial:"06-6816-8219",personal:"080-6377-1758"}
+    {name:"杉本 賢将",reading:"すぎもと けんしょう",year:"",phs:"2186",dial:"06-6816-4312",personal:""},
+    {name:"金澤 篤",reading:"かなざわ あつし",year:"",phs:"2219",dial:"06-6816-4040",personal:""},
+    {name:"龍 昌慶",reading:"りゅう まさよし",year:"",phs:"2211",dial:"06-6816-8156",personal:""},
+    {name:"松元 千拓",reading:"まつもと かずひろ",year:"",phs:"2209",dial:"06-6816-4313",personal:""},
+    {name:"青木 佑馬",reading:"あおき ゆうま",year:"",phs:"2214",dial:"06-6816-8219",personal:""}
   ],
   staff: [
     {name:"三木 健嗣",reading:"みき けんじ",phs:"2322",dial:""},
     {name:"島本 知美",reading:"しまもと ともみ",phs:"2205",dial:"06-6816-3131"},
-    {name:"荒木 奈美子",reading:"あらき なみこ",phs:"8850",dial:"06-6816-8217"},
+    {name:"森本 智子",reading:"もりもと ともこ",phs:"8850",dial:"06-6816-8217"},
     {name:"西村 絵里",reading:"にしむら えり",phs:"2181",dial:"06-6816-8613"},
     {name:"三輪 美保",reading:"みわ みほ",phs:"7603",dial:"06-6816-4010"},
+    {name:"尾田 ゆかり",reading:"おだ ゆかり",phs:"7605",dial:""},
     {name:"池谷 早苗",reading:"いけたに さなえ",phs:"2188",dial:"06-6816-8376"},
     {name:"穂前 佳菜子",reading:"ほまえ かなこ",phs:"2321",dial:"06-6816-8617"},
     {name:"片山 麻衣",reading:"かたやま まい",phs:"2191",dial:"06-6816-8218"}
@@ -399,7 +401,7 @@ const DATA = {
     {name:"呼吸器内科/外科 当直",reading:"こきゅうきないか げか とうちょく",phs:"8208",dial:"06-6816-3108"},
     {name:"呼吸器内科 時間内",reading:"こきゅうきないか じかんない",phs:"1736261",dial:""},
     {name:"国際医療センター通訳",reading:"こくさいいりょうせんたー つうやく",phs:"2886",dial:""},
-    {name:"災害時優先回線",reading:"さいがいじゆうせんかいせん",phs:"2190",dial:""},
+    {name:"災害時優先回線（医局長室）",reading:"さいがいじゆうせんかいせん いきょくちょうしつ",phs:"2190",dial:""},
     {name:"細菌検査室",reading:"さいきんけんさしつ",phs:"1736681",dial:""},
     {name:"産科 時間内",reading:"さんか じかんない",phs:"7728",dial:""},
     {name:"産科 当直",reading:"さんか とうちょく",phs:"7728",dial:"06-6816-2352"},
